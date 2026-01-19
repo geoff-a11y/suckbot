@@ -17,12 +17,16 @@ interface ConfettiOptions {
   disableForReducedMotion?: boolean;
 }
 
+// Brand colors
+const BRAND_PRIMARY = "#7877df";
+const BRAND_SUCCESS = "#10B981";
+
 export function triggerCelebration() {
-  // Fire confetti from both sides
+  // Fire confetti from both sides - final celebration
   const count = 200;
   const defaults: ConfettiOptions = {
     origin: { y: 0.7 },
-    colors: ["#7C3AED", "#10B981", "#F59E0B", "#3B82F6", "#EC4899"],
+    colors: [BRAND_PRIMARY, BRAND_SUCCESS, "#F59E0B", "#3B82F6", "#EC4899"],
   };
 
   function fire(particleRatio: number, opts: ConfettiOptions) {
@@ -63,7 +67,35 @@ export function triggerSuccessSparkle() {
     particleCount: 50,
     spread: 60,
     origin: { y: 0.6, x: 0.5 },
-    colors: ["#10B981", "#34D399", "#6EE7B7"],
+    colors: [BRAND_SUCCESS, "#34D399", "#6EE7B7"],
     scalar: 0.8,
+  });
+}
+
+export function triggerStageComplete() {
+  // Mid-tier celebration for completing a major stage
+  const count = 100;
+  const defaults: ConfettiOptions = {
+    origin: { y: 0.6 },
+    colors: [BRAND_PRIMARY, BRAND_SUCCESS, "#34D399"],
+    disableForReducedMotion: true,
+  };
+
+  // Fire from left
+  confetti({
+    ...defaults,
+    particleCount: count / 2,
+    angle: 60,
+    spread: 55,
+    origin: { x: 0, y: 0.6 },
+  });
+
+  // Fire from right
+  confetti({
+    ...defaults,
+    particleCount: count / 2,
+    angle: 120,
+    spread: 55,
+    origin: { x: 1, y: 0.6 },
   });
 }

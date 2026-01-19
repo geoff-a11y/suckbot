@@ -1,6 +1,13 @@
 import jsPDF from "jspdf";
 import "jspdf-autotable";
 import { SessionData } from "./types";
+import { LOGO_BASE64 } from "./logo";
+import {
+  YOUNG_SERIF_REGULAR,
+  OPEN_SANS_REGULAR,
+  OPEN_SANS_BOLD,
+  OPEN_SANS_ITALIC,
+} from "@/fonts/embedded";
 
 declare module "jspdf" {
   interface jsPDF {
@@ -11,15 +18,29 @@ declare module "jspdf" {
 
 export function generatePDF(session: SessionData): string {
   const doc = new jsPDF();
+
+  // Register custom fonts
+  doc.addFileToVFS("YoungSerif-Regular.ttf", YOUNG_SERIF_REGULAR);
+  doc.addFont("YoungSerif-Regular.ttf", "YoungSerif", "normal");
+
+  doc.addFileToVFS("OpenSans-Regular.ttf", OPEN_SANS_REGULAR);
+  doc.addFont("OpenSans-Regular.ttf", "OpenSans", "normal");
+
+  doc.addFileToVFS("OpenSans-Bold.ttf", OPEN_SANS_BOLD);
+  doc.addFont("OpenSans-Bold.ttf", "OpenSans", "bold");
+
+  doc.addFileToVFS("OpenSans-Italic.ttf", OPEN_SANS_ITALIC);
+  doc.addFont("OpenSans-Italic.ttf", "OpenSans", "italic");
+
   const pageWidth = doc.internal.pageSize.getWidth();
   const pageHeight = doc.internal.pageSize.getHeight();
   const margin = 20;
   const contentWidth = pageWidth - margin * 2;
   let yPos = margin;
 
-  // Color palette
+  // Color palette - #7877df as primary
   const colors = {
-    primary: [124, 58, 237] as [number, number, number],
+    primary: [120, 119, 223] as [number, number, number], // #7877df
     dark: [26, 26, 46] as [number, number, number],
     muted: [107, 107, 128] as [number, number, number],
     light: [248, 247, 252] as [number, number, number],
@@ -36,7 +57,7 @@ export function generatePDF(session: SessionData): string {
     doc.setFillColor(colors.primary[0], colors.primary[1], colors.primary[2]);
     doc.rect(0, yPos - 5, pageWidth, 14, "F");
     doc.setFontSize(14);
-    doc.setFont("helvetica", "bold");
+    doc.setFont("YoungSerif", "normal");
     setColor(colors.white);
     doc.text(text.toUpperCase(), margin, yPos + 5);
     yPos += 20;
@@ -45,7 +66,7 @@ export function generatePDF(session: SessionData): string {
   const addSubheading = (text: string) => {
     checkPageBreak(20);
     doc.setFontSize(12);
-    doc.setFont("helvetica", "bold");
+    doc.setFont("YoungSerif", "normal");
     setColor(colors.dark);
     doc.text(text, margin, yPos);
     yPos += 8;
@@ -53,7 +74,7 @@ export function generatePDF(session: SessionData): string {
 
   const addParagraph = (text: string, indent: number = 0) => {
     doc.setFontSize(10);
-    doc.setFont("helvetica", "normal");
+    doc.setFont("OpenSans", "normal");
     setColor(colors.muted);
     const lines = doc.splitTextToSize(text, contentWidth - indent);
     doc.text(lines, margin + indent, yPos);
@@ -62,7 +83,7 @@ export function generatePDF(session: SessionData): string {
 
   const addNarrativeParagraph = (text: string) => {
     doc.setFontSize(11);
-    doc.setFont("helvetica", "normal");
+    doc.setFont("OpenSans", "normal");
     setColor(colors.dark);
     const lines = doc.splitTextToSize(text, contentWidth);
     doc.text(lines, margin, yPos);
@@ -79,7 +100,7 @@ export function generatePDF(session: SessionData): string {
     doc.setLineWidth(0.5);
     doc.line(margin, yPos - 4, margin, yPos - 4 + boxHeight);
     doc.setFontSize(11);
-    doc.setFont("helvetica", "italic");
+    doc.setFont("OpenSans", "italic");
     setColor(colors.dark);
     doc.text(lines, margin + 10, yPos + 6);
     yPos += boxHeight + 8;
@@ -87,7 +108,7 @@ export function generatePDF(session: SessionData): string {
 
   const addBullet = (text: string) => {
     doc.setFontSize(10);
-    doc.setFont("helvetica", "normal");
+    doc.setFont("OpenSans", "normal");
     setColor(colors.muted);
     const lines = doc.splitTextToSize(text, contentWidth - 15);
     doc.text("•", margin + 5, yPos);
@@ -103,73 +124,171 @@ export function generatePDF(session: SessionData): string {
   };
 
   // === HEADER ===
-  // Create a short problem summary for the subtitle (first 60 chars)
+  // White background with logo
+  if (LOGO_BASE64) {
+    // Add logo at top left
+    try {
+      doc.addImage(LOGO_BASE64, "PNG", margin, 12, 50, 15);
+    } catch (e) {
+      // Fallback if logo fails to load
+      console.warn("Could not add logo to PDF:", e);
+    }
+  }
+
+  // Title on the right side of logo
+  doc.setFontSize(20);
+  doc.setFont("YoungSerif", "normal");
+  setColor(colors.primary);
+  doc.text("Human-AI Workflow Blueprint", margin + 55, 20);
+
+  // Problem-specific subtitle
   const problemSummary = session.selectedCandidate
-    ? session.selectedCandidate.length > 60
-      ? session.selectedCandidate.substring(0, 57) + "..."
+    ? session.selectedCandidate.length > 80
+      ? session.selectedCandidate.substring(0, 77) + "..."
       : session.selectedCandidate
     : "Process Transformation";
 
-  doc.setFillColor(colors.primary[0], colors.primary[1], colors.primary[2]);
-  doc.rect(0, 0, pageWidth, 55, "F");
+  doc.setFontSize(11);
+  doc.setFont("OpenSans", "normal");
+  setColor(colors.dark);
+  const subtitleLines = doc.splitTextToSize(problemSummary, contentWidth - 60);
+  doc.text(subtitleLines, margin + 55, 28);
 
-  doc.setFontSize(24);
-  doc.setFont("helvetica", "bold");
-  setColor(colors.white);
-  doc.text("HUMAN-AI WORKFLOW", margin, 18);
-  doc.text("BLUEPRINT", margin, 30);
-
-  // Problem-specific subtitle
-  doc.setFontSize(10);
-  doc.setFont("helvetica", "normal");
-  const subtitleLines = doc.splitTextToSize(`For: ${problemSummary}`, contentWidth - 70);
-  doc.text(subtitleLines, margin, 40);
-
+  // Date on the right
   doc.setFontSize(9);
-  doc.text(new Date().toLocaleDateString(), pageWidth - margin - 25, 48);
+  setColor(colors.muted);
+  doc.text(new Date().toLocaleDateString(), pageWidth - margin, 20, { align: "right" });
 
-  yPos = 70;
+  // Divider line
+  doc.setDrawColor(colors.light[0], colors.light[1], colors.light[2]);
+  doc.setLineWidth(1);
+  doc.line(margin, 42, pageWidth - margin, 42);
+
+  yPos = 52;
 
   // === EXECUTIVE SUMMARY ===
   addSectionTitle("Executive Summary");
 
   const problemShort = session.selectedCandidate || "A broken process";
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const autopsy = session.autopsy as any || {};
+  const audit = session.audit || {};
+  const desuck = session.desuck || {};
 
-  addNarrativeParagraph(
-    `This report examines a critical organizational challenge: ${problemShort.toLowerCase()}.`
-  );
+  // Use LLM-generated executive summary if available
+  if (desuck.executiveSummary) {
+    addNarrativeParagraph(desuck.executiveSummary);
+  } else {
+    // Fallback to dynamic summary construction
+    addNarrativeParagraph(
+      `This report examines a critical organizational challenge: ${problemShort.toLowerCase()}.`
+    );
 
-  addNarrativeParagraph(
-    "Through systematic analysis, we've identified why this problem persists despite widespread agreement that it needs to change, and we've designed a human-AI collaboration model to solve it."
-  );
+    // Build dynamic second paragraph from actual findings
+    const originsSnippet = (autopsy.originsConstraints || autopsy.origin || "").split('.')[0];
+    const hasPreviousAttempts = audit.previousAttempts === "multiple" || audit.previousAttempts === "one";
 
-  // Key findings box
+    let summaryParagraph = "";
+    if (originsSnippet) {
+      summaryParagraph = `Our analysis found that ${originsSnippet.toLowerCase()}. `;
+    }
+    if (hasPreviousAttempts) {
+      summaryParagraph += "Previous attempts to fix this addressed symptoms rather than root causes. ";
+    }
+    if (desuck.workflow && desuck.workflow.length > 0) {
+      summaryParagraph += `We've designed a ${desuck.workflow.length}-part human-AI collaboration model to transform this workflow.`;
+    }
+
+    if (summaryParagraph) {
+      addNarrativeParagraph(summaryParagraph);
+    }
+  }
+
+  // Key findings - derived from actual session data
   addSubheading("Key Findings");
-  const findings = [
-    "The problem has universal consensus — everyone agrees it needs to change",
-    "Previous fix attempts addressed symptoms, not root causes",
-    "The process was designed for constraints that no longer exist",
-    "A human-AI collaboration model can transform this workflow",
-  ];
+
+  // Build dynamic findings from session data
+  const findings: string[] = [];
+
+  // Consensus finding
+  if (audit.consensusPassed) {
+    findings.push("Universal consensus confirmed — this isn't one person's complaint, it's a shared organizational pain point.");
+  }
+
+  // Origins finding - extract key insight from autopsy
+  const originsData = autopsy.originsConstraints || autopsy.origin;
+  if (originsData) {
+    // Extract first sentence or meaningful chunk
+    const originInsight = originsData.split('.')[0];
+    findings.push(`Root cause identified: ${originInsight.toLowerCase()}.`);
+  }
+
+  // Previous attempts finding
+  if (audit.previousAttempts === "multiple") {
+    findings.push("Multiple previous fix attempts addressed symptoms rather than the underlying structural issues.");
+  } else if (audit.previousAttempts === "one") {
+    findings.push("A prior attempt to fix this didn't succeed — likely because root causes weren't addressed.");
+  }
+
+  // Stakes/outcomes finding
+  const stakesData = autopsy.stakesOutcomes || autopsy.outcomes;
+  if (stakesData) {
+    const stakesInsight = stakesData.split('.').find((s: string) => s.toLowerCase().includes('goal') || s.toLowerCase().includes('real'));
+    if (stakesInsight) {
+      findings.push(stakesInsight.trim() + ".");
+    }
+  }
+
+  // Workflow finding
+  if (desuck.workflow && desuck.workflow.length > 0) {
+    const modes = [...new Set(desuck.workflow.map(w => w.mode))];
+    findings.push(`A ${desuck.workflow.length}-part human-AI collaboration model can transform this workflow using ${modes.join(", ")} modes.`);
+  }
+
+  // Only show findings section if we have actual findings
+  if (findings.length === 0 && session.selectedCandidate) {
+    findings.push(`"${session.selectedCandidate}" represents a systemic issue requiring structural change.`);
+  }
+
   findings.forEach((f) => addBullet(f));
   yPos += 5;
 
-  // Recommendation preview
-  if (session.desuck?.workflow && session.desuck.workflow.length > 0) {
+  // Recommendation preview - derived from actual workflow
+  if (desuck.workflow && desuck.workflow.length > 0) {
     addSubheading("Recommended Approach");
-    addParagraph(
-      `We recommend a ${session.desuck.workflow.length}-part collaboration model where AI handles routine execution while humans retain strategic control and final accountability. Implementation begins with a focused pilot before scaling organization-wide.`
-    );
+
+    // Get the primary outcomes
+    const outcomesList = desuck.workflow.slice(0, 3).map(w => w.outcome.toLowerCase()).join(", ");
+
+    // Get delegation summary
+    const delegatedCount = desuck.workflow.filter(w => w.mode === "delegating").length;
+    const supervisedCount = desuck.workflow.filter(w => w.mode === "supervising").length;
+    const humanLedCount = desuck.workflow.filter(w => w.mode === "consulting" || w.mode === "approving").length;
+
+    let approachSummary = `We recommend a ${desuck.workflow.length}-part collaboration model focused on ${outcomesList}. `;
+
+    if (delegatedCount > 0) {
+      approachSummary += `AI fully handles ${delegatedCount} outcome${delegatedCount > 1 ? 's' : ''} within defined guardrails. `;
+    }
+    if (supervisedCount > 0) {
+      approachSummary += `${supervisedCount} outcome${supervisedCount > 1 ? 's' : ''} run on AI with human oversight. `;
+    }
+    if (humanLedCount > 0) {
+      approachSummary += `Humans lead ${humanLedCount} outcome${humanLedCount > 1 ? 's' : ''} with AI assistance. `;
+    }
+
+    if (desuck.transition?.pilotPlan) {
+      const pilotSnippet = desuck.transition.pilotPlan.split('.')[0];
+      approachSummary += pilotSnippet + ".";
+    }
+
+    addParagraph(approachSummary);
   }
 
   checkPageBreak(60);
 
   // === THE PROBLEM ===
   addSectionTitle("The Problem");
-
-  addNarrativeParagraph(
-    "Before designing solutions, we need to be precise about what we're solving. This section establishes the target for transformation."
-  );
 
   // Problem statement box
   if (session.selectedCandidate) {
@@ -178,7 +297,7 @@ export function generatePDF(session: SessionData): string {
     const problemBoxHeight = problemLines.length * 7 + 20;
     doc.rect(margin, yPos, contentWidth, problemBoxHeight, "F");
     doc.setFontSize(13);
-    doc.setFont("helvetica", "bold");
+    doc.setFont("OpenSans", "bold");
     setColor(colors.dark);
     doc.text(problemLines, margin + 10, yPos + 12);
     yPos += problemBoxHeight + 10;
@@ -187,7 +306,6 @@ export function generatePDF(session: SessionData): string {
   // Validation
   addSubheading("Why This Problem Matters");
 
-  const audit = session.audit || {};
   const validationPoints = [];
 
   if (audit.consensusPassed) {
@@ -207,10 +325,10 @@ export function generatePDF(session: SessionData): string {
     validationPoints.forEach((point) => {
       const [title, ...rest] = point.split(": ");
       doc.setFontSize(10);
-      doc.setFont("helvetica", "bold");
+      doc.setFont("OpenSans", "bold");
       setColor(colors.dark);
       doc.text(title + ":", margin + 5, yPos);
-      doc.setFont("helvetica", "normal");
+      doc.setFont("OpenSans", "normal");
       setColor(colors.muted);
       const restText = rest.join(": ");
       const lines = doc.splitTextToSize(restText, contentWidth - 15);
@@ -224,85 +342,41 @@ export function generatePDF(session: SessionData): string {
   // === WHY IT PERSISTS ===
   addSectionTitle("Why It Persists");
 
-  addNarrativeParagraph(
-    "Understanding what sucks is only the beginning. To fix it sustainably, we need to understand why it persists — what keeps a clearly broken process in place despite everyone agreeing it's broken."
-  );
-
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const autopsy = session.autopsy as any || {};
-
   // Check if using new 3-layer format or legacy 6-layer format
   const isNewFormat = autopsy.originsConstraints || autopsy.assumptionsWorkarounds || autopsy.stakesOutcomes;
-  const hasContent = isNewFormat || autopsy.origin || autopsy.constraints || autopsy.assumptions;
-
-  // Synthesis paragraph - the key insight
-  if (hasContent) {
-    addEmphasisBox(
-      "The analysis reveals a consistent pattern: this process was designed for a different era. The original constraints have changed, but the assumptions and workflows haven't caught up. Meanwhile, workarounds have created new dependencies that resist change."
-    );
-  }
 
   if (isNewFormat) {
-    // New 3-layer format
+    // Write as flowing narrative, not rigid boxes
     if (autopsy.originsConstraints) {
-      addSubheading("Origins & Constraints");
-      addParagraph(autopsy.originsConstraints);
+      addNarrativeParagraph(autopsy.originsConstraints);
     }
 
     checkPageBreak(40);
 
     if (autopsy.assumptionsWorkarounds) {
-      addSubheading("Assumptions & Workarounds");
-      addParagraph(autopsy.assumptionsWorkarounds);
+      addNarrativeParagraph(autopsy.assumptionsWorkarounds);
     }
 
     checkPageBreak(40);
 
     if (autopsy.stakesOutcomes) {
-      addSubheading("Stakes & Outcomes");
       addNarrativeParagraph(autopsy.stakesOutcomes);
     }
   } else {
-    // Legacy 6-layer format (backward compatibility)
-    if (autopsy.origin) {
-      addSubheading("How It Started");
-      addParagraph(autopsy.origin);
-    }
+    // Legacy 6-layer format - also as narrative
+    const narrativeParts: string[] = [];
 
-    checkPageBreak(40);
+    if (autopsy.origin) narrativeParts.push(autopsy.origin);
+    if (autopsy.constraints) narrativeParts.push(autopsy.constraints);
+    if (autopsy.assumptions) narrativeParts.push(autopsy.assumptions);
+    if (autopsy.workarounds) narrativeParts.push(autopsy.workarounds);
+    if (autopsy.stakeholders) narrativeParts.push(autopsy.stakeholders);
+    if (autopsy.outcomes) narrativeParts.push(autopsy.outcomes);
 
-    if (autopsy.constraints) {
-      addSubheading("Constraints That No Longer Apply");
-      addParagraph(autopsy.constraints);
-    }
-
-    checkPageBreak(40);
-
-    if (autopsy.assumptions) {
-      addSubheading("Unquestioned Assumptions");
-      addParagraph(autopsy.assumptions);
-    }
-
-    checkPageBreak(40);
-
-    if (autopsy.workarounds) {
-      addSubheading("The Shadow Process");
-      addParagraph(autopsy.workarounds);
-    }
-
-    checkPageBreak(40);
-
-    if (autopsy.stakeholders) {
-      addSubheading("Hidden Dynamics");
-      addParagraph(autopsy.stakeholders);
-    }
-
-    checkPageBreak(40);
-
-    if (autopsy.outcomes) {
-      addSubheading("What You Actually Need");
-      addNarrativeParagraph(autopsy.outcomes);
-    }
+    narrativeParts.forEach(part => {
+      checkPageBreak(40);
+      addNarrativeParagraph(part);
+    });
   }
 
   checkPageBreak(80);
@@ -310,21 +384,12 @@ export function generatePDF(session: SessionData): string {
   // === THE SOLUTION ===
   addSectionTitle("The Solution");
 
-  addNarrativeParagraph(
-    "Rather than automating the broken process, we've designed a new human-AI collaboration model focused on the outcomes that actually matter. This isn't about replacing humans — it's about letting each do what they do best."
-  );
-
-  const desuck = session.desuck || {};
-
-  // Outcomes
+  // Outcomes - show what we're actually solving for
   if (desuck.outcomes && desuck.outcomes.length > 0) {
     addSubheading("Target Outcomes");
-    addParagraph(
-      "The redesigned workflow focuses on delivering these specific outcomes:"
-    );
     desuck.outcomes.forEach((outcome, i) => {
       doc.setFontSize(10);
-      doc.setFont("helvetica", "normal");
+      doc.setFont("OpenSans", "normal");
       setColor(colors.dark);
       doc.text(`${i + 1}. ${outcome}`, margin + 5, yPos);
       yPos += 7;
@@ -334,13 +399,9 @@ export function generatePDF(session: SessionData): string {
 
   checkPageBreak(60);
 
-  // Workflow design - single clean presentation
+  // Workflow design
   if (desuck.workflow && desuck.workflow.length > 0) {
     addSubheading("Human-AI Collaboration Model");
-
-    addParagraph(
-      "For each outcome, we've determined the optimal collaboration mode based on what humans and AI each do best:"
-    );
 
     yPos += 5;
 
@@ -351,13 +412,13 @@ export function generatePDF(session: SessionData): string {
       doc.setFillColor(colors.light[0], colors.light[1], colors.light[2]);
       doc.rect(margin, yPos - 3, contentWidth, 10, "F");
       doc.setFontSize(11);
-      doc.setFont("helvetica", "bold");
+      doc.setFont("OpenSans", "bold");
       setColor(colors.primary);
       doc.text(`${i + 1}. ${w.outcome}`, margin + 5, yPos + 4);
 
       // Mode badge
       doc.setFontSize(9);
-      doc.setFont("helvetica", "bold");
+      doc.setFont("OpenSans", "bold");
       setColor(colors.dark);
       const modeText = w.mode.charAt(0).toUpperCase() + w.mode.slice(1) + " Mode";
       doc.text(modeText, pageWidth - margin - 30, yPos + 4);
@@ -369,19 +430,19 @@ export function generatePDF(session: SessionData): string {
 
       // AI column
       doc.setFontSize(9);
-      doc.setFont("helvetica", "bold");
+      doc.setFont("OpenSans", "bold");
       setColor(colors.primary);
       doc.text("AI handles:", margin, yPos);
-      doc.setFont("helvetica", "normal");
+      doc.setFont("OpenSans", "normal");
       setColor(colors.muted);
       const aiLines = doc.splitTextToSize(w.aiDoes || "", colWidth - 5);
       doc.text(aiLines, margin, yPos + 5);
 
       // Human column
-      doc.setFont("helvetica", "bold");
+      doc.setFont("OpenSans", "bold");
       setColor(colors.primary);
       doc.text("Human handles:", margin + colWidth + 10, yPos);
-      doc.setFont("helvetica", "normal");
+      doc.setFont("OpenSans", "normal");
       setColor(colors.muted);
       const humanLines = doc.splitTextToSize(w.humanDoes || "", colWidth - 5);
       doc.text(humanLines, margin + colWidth + 10, yPos + 5);
@@ -392,7 +453,7 @@ export function generatePDF(session: SessionData): string {
       // Reasoning
       if (w.reasoning) {
         doc.setFontSize(9);
-        doc.setFont("helvetica", "italic");
+        doc.setFont("OpenSans", "italic");
         setColor(colors.muted);
         const reasonLines = doc.splitTextToSize(`Why: ${w.reasoning}`, contentWidth - 10);
         doc.text(reasonLines, margin + 5, yPos);
@@ -408,145 +469,159 @@ export function generatePDF(session: SessionData): string {
   // === MAKING IT HAPPEN ===
   addSectionTitle("Making It Happen");
 
-  addNarrativeParagraph(
-    "A good design is worthless without a clear path to implementation. This section outlines how to move from blueprint to reality."
-  );
-
-  // Learning system
-  if (desuck.learning) {
-    addSubheading("Continuous Improvement");
-    addParagraph(desuck.learning);
-  }
-
-  checkPageBreak(40);
-
-  // Transition
+  // Transition - use actual data from conversation
   if (desuck.transition) {
     if (desuck.transition.humanElement) {
       addSubheading("Change Management");
-      addParagraph(desuck.transition.humanElement);
+      addNarrativeParagraph(desuck.transition.humanElement);
     }
 
     checkPageBreak(40);
 
     if (desuck.transition.pilotPlan) {
       addSubheading("Pilot Strategy");
-      addParagraph(desuck.transition.pilotPlan);
+      addNarrativeParagraph(desuck.transition.pilotPlan);
     }
   }
 
-  checkPageBreak(80);
-
-  // Implementation roadmap
-  addSubheading("Implementation Roadmap");
-
-  // This week
-  doc.setFontSize(10);
-  doc.setFont("helvetica", "bold");
-  setColor(colors.dark);
-  doc.text("This Week", margin, yPos);
-  yPos += 6;
-
-  const week1 = [
-    "Share this blueprint with key stakeholders",
-    "Identify the first outcome to pilot (lowest risk, clearest win)",
-    "Document current process baseline for comparison",
-  ];
-  week1.forEach((item, i) => {
-    doc.setFontSize(10);
-    doc.setFont("helvetica", "normal");
-    setColor(colors.muted);
-    doc.text(`${i + 1}. ${item}`, margin + 5, yPos);
-    yPos += 6;
-  });
-
-  yPos += 6;
   checkPageBreak(40);
 
-  // First 30 days
-  doc.setFontSize(10);
-  doc.setFont("helvetica", "bold");
-  setColor(colors.dark);
-  doc.text("First 30 Days", margin, yPos);
-  yPos += 6;
+  // Learning system
+  if (desuck.learning) {
+    addSubheading("Continuous Improvement");
+    addNarrativeParagraph(desuck.learning);
+  }
 
-  const month1 = [
-    "Run pilot with a small team or specific use case",
-    "Track time saved, quality changes, and team feedback",
-    "Document AI corrections — these improve future results",
-    "Adjust collaboration modes based on what you learn",
-  ];
-  month1.forEach((item, i) => {
-    doc.setFontSize(10);
-    doc.setFont("helvetica", "normal");
-    setColor(colors.muted);
-    doc.text(`${i + 1}. ${item}`, margin + 5, yPos);
-    yPos += 6;
-  });
-
-  yPos += 8;
   checkPageBreak(50);
 
-  // Success metrics
-  addSubheading("Success Indicators");
-  const metrics = [
-    "Time: Process takes measurably less time than before",
-    "Quality: Output meets or exceeds previous standards",
-    "Consistency: Results are predictable across different people",
-    "Satisfaction: People involved prefer the new way of working",
-  ];
-  metrics.forEach((m) => addBullet(m));
+  // Success metrics - derived from actual measurability data
+  addSubheading("How You'll Know It's Working");
+
+  const successIndicators: string[] = [];
+
+  // Build from audit.measurable
+  if (audit.measurable === "clear") {
+    successIndicators.push("You identified clear metrics during our conversation — track these weekly and compare against your baseline.");
+  } else if (audit.measurable === "noticeable") {
+    successIndicators.push("While metrics aren't perfectly defined, you'll notice improvements in speed, quality, and team satisfaction.");
+  } else if (audit.measurable === "subjective") {
+    successIndicators.push("Success here is more qualitative — gather regular feedback from people involved and watch for reduced friction.");
+  }
+
+  // Add workflow-specific indicators
+  if (desuck.workflow && desuck.workflow.length > 0) {
+    const delegatedTasks = desuck.workflow.filter(w => w.mode === "delegating");
+    if (delegatedTasks.length > 0) {
+      successIndicators.push(`For delegated tasks like "${delegatedTasks[0].outcome.toLowerCase()}", measure volume handled and exceptions flagged.`);
+    }
+
+    const approvedTasks = desuck.workflow.filter(w => w.mode === "approving");
+    if (approvedTasks.length > 0) {
+      successIndicators.push(`For approval workflows, track review time and approval rates.`);
+    }
+  }
+
+  // Fallback only if no data
+  if (successIndicators.length === 0) {
+    successIndicators.push("Track time spent, output quality, and team feedback before and after implementation.");
+  }
+
+  successIndicators.forEach((m) => addBullet(m));
 
   checkPageBreak(60);
 
   // === CONCLUSION ===
-  addSectionTitle("Conclusion");
+  addSectionTitle("Next Steps");
 
-  addNarrativeParagraph(
-    "This blueprint represents a shift from fighting a broken process to designing a better one. The problem wasn't lack of effort or discipline — it was a workflow designed for constraints that no longer exist."
-  );
+  // Build conclusion from actual session data
+  const conclusionParts: string[] = [];
 
-  addNarrativeParagraph(
-    "By pairing human judgment with AI capability in the right configuration, you can achieve better outcomes with less friction. The path forward starts with a focused pilot, learns from real usage, and scales based on evidence."
-  );
+  if (session.selectedCandidate) {
+    conclusionParts.push(`You identified "${session.selectedCandidate.toLowerCase()}" as a critical organizational challenge.`);
+  }
 
-  // CTA box
-  checkPageBreak(60);
-  doc.setFillColor(colors.light[0], colors.light[1], colors.light[2]);
-  doc.rect(margin, yPos, contentWidth, 50, "F");
+  if (autopsy.originsConstraints || autopsy.origin) {
+    conclusionParts.push("We traced its origins and found it was designed for constraints that no longer apply.");
+  }
+
+  if (desuck.workflow && desuck.workflow.length > 0) {
+    const modeBreakdown = desuck.workflow.reduce((acc, w) => {
+      acc[w.mode] = (acc[w.mode] || 0) + 1;
+      return acc;
+    }, {} as Record<string, number>);
+
+    const modeDescriptions = Object.entries(modeBreakdown)
+      .map(([mode, count]) => `${count} ${mode}`)
+      .join(", ");
+
+    conclusionParts.push(`The ${desuck.workflow.length}-part solution assigns ${modeDescriptions} collaboration modes to match each outcome with the right human-AI balance.`);
+  }
+
+  if (desuck.transition?.pilotPlan) {
+    conclusionParts.push(`Start with the pilot approach outlined above, then scale based on what you learn.`);
+  }
+
+  conclusionParts.forEach(part => {
+    addNarrativeParagraph(part);
+    checkPageBreak(30);
+  });
+
+  // Share with team prompt
+  checkPageBreak(45);
+  doc.setFillColor(248, 250, 252);
+  doc.rect(margin, yPos, contentWidth, 35, "F");
+  doc.setDrawColor(colors.primary[0], colors.primary[1], colors.primary[2]);
+  doc.setLineWidth(0.5);
+  doc.line(margin, yPos, margin, yPos + 35);
 
   yPos += 10;
+  doc.setFontSize(11);
+  doc.setFont("OpenSans", "bold");
+  setColor(colors.dark);
+  doc.text("Share this with your team", margin + 10, yPos);
+
+  yPos += 7;
+  doc.setFontSize(9);
+  doc.setFont("OpenSans", "normal");
+  setColor(colors.muted);
+  const shareText = "This blueprint was designed for collective action. Share it with stakeholders who need to understand the problem and the path forward.";
+  const shareLines = doc.splitTextToSize(shareText, contentWidth - 20);
+  doc.text(shareLines, margin + 10, yPos);
+
+  yPos += shareLines.length * 4 + 15;
+
+  // CTA box with clickable links
+  checkPageBreak(50);
+  doc.setFillColor(colors.light[0], colors.light[1], colors.light[2]);
+  doc.rect(margin, yPos, contentWidth, 40, "F");
+
+  yPos += 12;
   doc.setFontSize(12);
-  doc.setFont("helvetica", "bold");
+  doc.setFont("OpenSans", "bold");
   setColor(colors.dark);
   doc.text("Ready to implement?", margin + 10, yPos);
 
-  yPos += 8;
-  doc.setFontSize(10);
-  doc.setFont("helvetica", "normal");
-  setColor(colors.muted);
-  doc.text(
-    "This blueprint is your starting point. For hands-on help with implementation,",
-    margin + 10,
-    yPos
-  );
-  yPos += 5;
-  doc.text("workflow design, or custom AI solutions:", margin + 10, yPos);
-
   yPos += 10;
-  doc.setFont("helvetica", "bold");
+  doc.setFontSize(10);
+  doc.setFont("OpenSans", "normal");
   setColor(colors.primary);
-  doc.text("Book a call: calendly.com/geoff-human-machines/30min", margin + 10, yPos);
-  yPos += 6;
-  setColor(colors.dark);
-  doc.text("Email: hello@human-machines.com", margin + 10, yPos);
+
+  // Clickable link - Book a call
+  doc.textWithLink("Book a 30-minute call", margin + 10, yPos, {
+    url: "https://calendly.com/geoff-human-machines/30min"
+  });
+  doc.text("  |  ", margin + 55, yPos);
+  // Clickable link - Email
+  doc.textWithLink("Email us", margin + 65, yPos, {
+    url: "mailto:hello@human-machines.com"
+  });
 
   // === FOOTER ON ALL PAGES ===
   const pageCount = doc.getNumberOfPages();
   for (let i = 1; i <= pageCount; i++) {
     doc.setPage(i);
     doc.setFontSize(8);
-    doc.setFont("helvetica", "normal");
+    doc.setFont("OpenSans", "normal");
     doc.setTextColor(156, 163, 175);
     doc.text(
       "Human Machines | human-machines.com",

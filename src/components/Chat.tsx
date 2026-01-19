@@ -12,7 +12,7 @@ import TypingIndicator from "./TypingIndicator";
 import WelcomeCard from "./cards/WelcomeCard";
 import PrivacyCard from "./cards/PrivacyCard";
 import { generatePDF } from "@/lib/generatePDF";
-import { triggerCelebration, triggerSuccessSparkle } from "@/lib/confetti";
+import { triggerCelebration, triggerSuccessSparkle, triggerStageComplete } from "@/lib/confetti";
 import { getEncouragementMessage } from "@/lib/progress";
 import {
   ChatState,
@@ -37,7 +37,16 @@ const initialSession: SessionData = {
 type OnboardingStep = "welcome" | "privacy" | "ready";
 
 // Phases that trigger success animations
-const SUCCESS_PHASES: Phase[] = ["CONSENSUS_PASS", "AUDIT_COMPLETE", "AUTOPSY_REPORT", "DESUCK_SUMMARY"];
+const SUCCESS_PHASES: Phase[] = ["CONSENSUS_PASS", "DESUCK_SUMMARY"];
+
+// Phases that mark stage completion (mid-tier celebration)
+const STAGE_COMPLETE_PHASES: Phase[] = ["AUDIT_COMPLETE", "AUTOPSY_REPORT"];
+
+// Messages for stage completions
+const STAGE_COMPLETE_MESSAGES: Partial<Record<Phase, string>> = {
+  AUDIT_COMPLETE: "Audit complete! Now let's understand why this problem persists.",
+  AUTOPSY_REPORT: "Great insights! Time to design your solution.",
+};
 
 export default function Chat() {
   const [state, setState] = useState<ChatState>({
@@ -94,8 +103,16 @@ export default function Chat() {
     const previousPhase = previousPhaseRef.current;
 
     if (currentPhase !== previousPhase) {
-      // Trigger success animation for milestone phases
-      if (SUCCESS_PHASES.includes(currentPhase)) {
+      // Trigger stage completion celebration (mid-tier)
+      if (STAGE_COMPLETE_PHASES.includes(currentPhase)) {
+        triggerStageComplete();
+        const message = STAGE_COMPLETE_MESSAGES[currentPhase];
+        if (message) {
+          toast.success(message, { duration: 5000 });
+        }
+      }
+      // Trigger success animation for smaller milestones
+      else if (SUCCESS_PHASES.includes(currentPhase)) {
         triggerSuccessSparkle();
       }
 
@@ -103,6 +120,7 @@ export default function Chat() {
       if (currentPhase === "GENERATE_REPORT") {
         setTimeout(() => {
           triggerCelebration();
+          toast.success("Your De-Suckification Blueprint is ready!", { duration: 6000 });
         }, 500);
       }
 

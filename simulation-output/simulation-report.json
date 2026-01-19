@@ -1,0 +1,916 @@
+{
+  "summary": {
+    "totalUsers": 100,
+    "timestamp": "2026-01-19T21:53:01.051Z"
+  },
+  "timeEstimates": {
+    "averageMinutes": 19,
+    "minimumMinutes": 15,
+    "maximumMinutes": 23,
+    "averageInteractions": 19.1,
+    "breakdown": {
+      "quickPath": "15-20 minutes (single problem, quick responses)",
+      "typicalPath": "25-30 minutes (thoughtful responses, some exploration)",
+      "deepPath": "35-45 minutes (multiple problems considered, detailed answers)"
+    }
+  },
+  "feedback": {
+    "averageClarity": 3.9,
+    "averageUsefulness": 4,
+    "averageActionability": 4,
+    "overallSatisfaction": 4,
+    "sampleComments": [
+      {
+        "orgType": "Consulting",
+        "comment": "Surprised how much I learned about our own processes."
+      },
+      {
+        "orgType": "Nonprofit",
+        "comment": "Liked the human-AI collaboration framing. Made it feel less threatening."
+      },
+      {
+        "orgType": "Retail",
+        "comment": "Took longer than expected, but worth it for the insights."
+      },
+      {
+        "orgType": "Tech Startup",
+        "comment": "Surprised how much I learned about our own processes."
+      },
+      {
+        "orgType": "Education",
+        "comment": "Really helped me see the problem from a new angle."
+      },
+      {
+        "orgType": "Manufacturing",
+        "comment": "Good structure, kept me focused instead of just venting."
+      },
+      {
+        "orgType": "Financial Services",
+        "comment": "Really helped me see the problem from a new angle."
+      },
+      {
+        "orgType": "Healthcare",
+        "comment": "Good structure, kept me focused instead of just venting."
+      },
+      {
+        "orgType": "Consulting",
+        "comment": "Good structure, kept me focused instead of just venting."
+      },
+      {
+        "orgType": "Tech Startup",
+        "comment": "Would have liked more specific tool recommendations."
+      }
+    ]
+  },
+  "organizationBreakdown": {
+    "Manufacturing": 12,
+    "Nonprofit": 4,
+    "Legal": 4,
+    "Tech Startup": 13,
+    "Education": 13,
+    "Healthcare": 13,
+    "Government": 6,
+    "Consulting": 14,
+    "Financial Services": 9,
+    "Retail": 12
+  },
+  "pdfSamples": [
+    {
+      "id": 40,
+      "orgType": "Consulting",
+      "orgSize": "medium",
+      "problem": "Resource allocation conflicts between projects weekly",
+      "filename": "sample-40-consulting.json"
+    },
+    {
+      "id": 2,
+      "orgType": "Nonprofit",
+      "orgSize": "small",
+      "problem": "Donor tracking is split between 3 spreadsheets and a CRM nobody uses",
+      "filename": "sample-2-nonprofit.json"
+    },
+    {
+      "id": 38,
+      "orgType": "Retail",
+      "orgSize": "large",
+      "problem": "Vendor negotiations happen without historical data",
+      "filename": "sample-38-retail.json"
+    },
+    {
+      "id": 51,
+      "orgType": "Tech Startup",
+      "orgSize": "small",
+      "problem": "Customer support tickets get lost between Slack and email",
+      "filename": "sample-51-tech-startup.json"
+    },
+    {
+      "id": 54,
+      "orgType": "Education",
+      "orgSize": "medium",
+      "problem": "Substitute teacher coordination is chaos every morning",
+      "filename": "sample-54-education.json"
+    }
+  ],
+  "allUsers": [
+    {
+      "id": 40,
+      "orgType": "Consulting",
+      "problem": "Resource allocation conflicts between projects weekly...",
+      "interactions": 18,
+      "minutes": 18,
+      "satisfaction": 3.3
+    },
+    {
+      "id": 2,
+      "orgType": "Nonprofit",
+      "problem": "Donor tracking is split between 3 spreadsheets and a CRM nob...",
+      "interactions": 18,
+      "minutes": 18,
+      "satisfaction": 3.3
+    },
+    {
+      "id": 38,
+      "orgType": "Retail",
+      "problem": "Vendor negotiations happen without historical data...",
+      "interactions": 18,
+      "minutes": 19,
+      "satisfaction": 4.3
+    },
+    {
+      "id": 51,
+      "orgType": "Tech Startup",
+      "problem": "Customer support tickets get lost between Slack and email...",
+      "interactions": 18,
+      "minutes": 16,
+      "satisfaction": 4.3
+    },
+    {
+      "id": 54,
+      "orgType": "Education",
+      "problem": "Substitute teacher coordination is chaos every morning...",
+      "interactions": 19,
+      "minutes": 16,
+      "satisfaction": 4
+    },
+    {
+      "id": 1,
+      "orgType": "Manufacturing",
+      "problem": "Inventory counts are always wrong by the time reports are ru...",
+      "interactions": 20,
+      "minutes": 23,
+      "satisfaction": 3.7
+    },
+    {
+      "id": 30,
+      "orgType": "Financial Services",
+      "problem": "Expense approvals sit in queues for weeks...",
+      "interactions": 18,
+      "minutes": 16,
+      "satisfaction": 3.3
+    },
+    {
+      "id": 9,
+      "orgType": "Healthcare",
+      "problem": "Medication reconciliation errors happen weekly...",
+      "interactions": 18,
+      "minutes": 18,
+      "satisfaction": 4
+    },
+    {
+      "id": 64,
+      "orgType": "Consulting",
+      "problem": "Client deliverable reviews take 3 rounds minimum...",
+      "interactions": 20,
+      "minutes": 17,
+      "satisfaction": 4
+    },
+    {
+      "id": 10,
+      "orgType": "Tech Startup",
+      "problem": "Customer support tickets get lost between Slack and email...",
+      "interactions": 19,
+      "minutes": 16,
+      "satisfaction": 5
+    },
+    {
+      "id": 25,
+      "orgType": "Nonprofit",
+      "problem": "Board reporting is a manual scramble every quarter...",
+      "interactions": 20,
+      "minutes": 23,
+      "satisfaction": 4
+    },
+    {
+      "id": 66,
+      "orgType": "Healthcare",
+      "problem": "Shift handoff communication gets lost constantly...",
+      "interactions": 20,
+      "minutes": 22,
+      "satisfaction": 3.3
+    },
+    {
+      "id": 90,
+      "orgType": "Consulting",
+      "problem": "Proposal creation starts from scratch every time...",
+      "interactions": 20,
+      "minutes": 22,
+      "satisfaction": 4
+    },
+    {
+      "id": 13,
+      "orgType": "Government",
+      "problem": "Constituent inquiries get routed to wrong departments consta...",
+      "interactions": 19,
+      "minutes": 15,
+      "satisfaction": 4.7
+    },
+    {
+      "id": 42,
+      "orgType": "Education",
+      "problem": "Student progress tracking requires checking 4 different syst...",
+      "interactions": 20,
+      "minutes": 22,
+      "satisfaction": 3.7
+    },
+    {
+      "id": 88,
+      "orgType": "Tech Startup",
+      "problem": "Documentation is scattered across 6 different tools...",
+      "interactions": 19,
+      "minutes": 20,
+      "satisfaction": 4.7
+    },
+    {
+      "id": 27,
+      "orgType": "Healthcare",
+      "problem": "Medication reconciliation errors happen weekly...",
+      "interactions": 18,
+      "minutes": 17,
+      "satisfaction": 4
+    },
+    {
+      "id": 78,
+      "orgType": "Manufacturing",
+      "problem": "Production planning changes 3 times a day...",
+      "interactions": 19,
+      "minutes": 22,
+      "satisfaction": 3.7
+    },
+    {
+      "id": 74,
+      "orgType": "Manufacturing",
+      "problem": "Maintenance scheduling is reactive, never preventive...",
+      "interactions": 19,
+      "minutes": 17,
+      "satisfaction": 4
+    },
+    {
+      "id": 56,
+      "orgType": "Education",
+      "problem": "Substitute teacher coordination is chaos every morning...",
+      "interactions": 19,
+      "minutes": 16,
+      "satisfaction": 5
+    },
+    {
+      "id": 26,
+      "orgType": "Retail",
+      "problem": "Customer complaints get resolved but patterns never get addr...",
+      "interactions": 20,
+      "minutes": 17,
+      "satisfaction": 4
+    },
+    {
+      "id": 50,
+      "orgType": "Government",
+      "problem": "Public records requests create backlogs of months...",
+      "interactions": 18,
+      "minutes": 20,
+      "satisfaction": 3.7
+    },
+    {
+      "id": 70,
+      "orgType": "Education",
+      "problem": "Curriculum updates take a full semester to propagate...",
+      "interactions": 20,
+      "minutes": 17,
+      "satisfaction": 3
+    },
+    {
+      "id": 5,
+      "orgType": "Tech Startup",
+      "problem": "Sprint planning takes half a day every two weeks...",
+      "interactions": 20,
+      "minutes": 19,
+      "satisfaction": 4
+    },
+    {
+      "id": 12,
+      "orgType": "Tech Startup",
+      "problem": "Onboarding new engineers takes 3 weeks minimum...",
+      "interactions": 18,
+      "minutes": 15,
+      "satisfaction": 3.7
+    },
+    {
+      "id": 82,
+      "orgType": "Consulting",
+      "problem": "Proposal creation starts from scratch every time...",
+      "interactions": 19,
+      "minutes": 21,
+      "satisfaction": 3
+    },
+    {
+      "id": 60,
+      "orgType": "Education",
+      "problem": "Parent communication is inconsistent across teachers...",
+      "interactions": 18,
+      "minutes": 15,
+      "satisfaction": 3.3
+    },
+    {
+      "id": 19,
+      "orgType": "Tech Startup",
+      "problem": "Feature requests from sales never make it to the roadmap...",
+      "interactions": 18,
+      "minutes": 15,
+      "satisfaction": 3.7
+    },
+    {
+      "id": 75,
+      "orgType": "Consulting",
+      "problem": "Utilization tracking is always disputed...",
+      "interactions": 19,
+      "minutes": 17,
+      "satisfaction": 3.7
+    },
+    {
+      "id": 76,
+      "orgType": "Education",
+      "problem": "Parent communication is inconsistent across teachers...",
+      "interactions": 18,
+      "minutes": 17,
+      "satisfaction": 4
+    },
+    {
+      "id": 23,
+      "orgType": "Retail",
+      "problem": "Seasonal hiring onboarding is a nightmare every year...",
+      "interactions": 20,
+      "minutes": 16,
+      "satisfaction": 4
+    },
+    {
+      "id": 6,
+      "orgType": "Education",
+      "problem": "Student progress tracking requires checking 4 different syst...",
+      "interactions": 19,
+      "minutes": 16,
+      "satisfaction": 3.7
+    },
+    {
+      "id": 45,
+      "orgType": "Tech Startup",
+      "problem": "Customer support tickets get lost between Slack and email...",
+      "interactions": 19,
+      "minutes": 20,
+      "satisfaction": 3.7
+    },
+    {
+      "id": 71,
+      "orgType": "Education",
+      "problem": "Curriculum updates take a full semester to propagate...",
+      "interactions": 19,
+      "minutes": 20,
+      "satisfaction": 3.3
+    },
+    {
+      "id": 100,
+      "orgType": "Consulting",
+      "problem": "Resource allocation conflicts between projects weekly...",
+      "interactions": 18,
+      "minutes": 19,
+      "satisfaction": 5
+    },
+    {
+      "id": 84,
+      "orgType": "Tech Startup",
+      "problem": "Feature requests from sales never make it to the roadmap...",
+      "interactions": 20,
+      "minutes": 21,
+      "satisfaction": 4.3
+    },
+    {
+      "id": 85,
+      "orgType": "Manufacturing",
+      "problem": "Inventory counts are always wrong by the time reports are ru...",
+      "interactions": 18,
+      "minutes": 18,
+      "satisfaction": 4.3
+    },
+    {
+      "id": 57,
+      "orgType": "Manufacturing",
+      "problem": "Production planning changes 3 times a day...",
+      "interactions": 19,
+      "minutes": 20,
+      "satisfaction": 4.3
+    },
+    {
+      "id": 58,
+      "orgType": "Education",
+      "problem": "Student progress tracking requires checking 4 different syst...",
+      "interactions": 19,
+      "minutes": 16,
+      "satisfaction": 4.3
+    },
+    {
+      "id": 15,
+      "orgType": "Financial Services",
+      "problem": "Client onboarding requires 12 different forms across 4 syste...",
+      "interactions": 20,
+      "minutes": 19,
+      "satisfaction": 3.7
+    },
+    {
+      "id": 59,
+      "orgType": "Retail",
+      "problem": "Customer complaints get resolved but patterns never get addr...",
+      "interactions": 19,
+      "minutes": 19,
+      "satisfaction": 3
+    },
+    {
+      "id": 69,
+      "orgType": "Manufacturing",
+      "problem": "Quality control data sits in paper logs nobody reads...",
+      "interactions": 19,
+      "minutes": 18,
+      "satisfaction": 4.3
+    },
+    {
+      "id": 7,
+      "orgType": "Healthcare",
+      "problem": "Shift handoff communication gets lost constantly...",
+      "interactions": 20,
+      "minutes": 20,
+      "satisfaction": 4
+    },
+    {
+      "id": 32,
+      "orgType": "Education",
+      "problem": "Substitute teacher coordination is chaos every morning...",
+      "interactions": 20,
+      "minutes": 23,
+      "satisfaction": 4
+    },
+    {
+      "id": 37,
+      "orgType": "Education",
+      "problem": "Substitute teacher coordination is chaos every morning...",
+      "interactions": 18,
+      "minutes": 16,
+      "satisfaction": 3.3
+    },
+    {
+      "id": 46,
+      "orgType": "Financial Services",
+      "problem": "Client onboarding requires 12 different forms across 4 syste...",
+      "interactions": 19,
+      "minutes": 19,
+      "satisfaction": 4
+    },
+    {
+      "id": 3,
+      "orgType": "Legal",
+      "problem": "Client intake forms are still faxed (yes, faxed)...",
+      "interactions": 19,
+      "minutes": 15,
+      "satisfaction": 4.3
+    },
+    {
+      "id": 44,
+      "orgType": "Retail",
+      "problem": "Vendor negotiations happen without historical data...",
+      "interactions": 20,
+      "minutes": 19,
+      "satisfaction": 3.7
+    },
+    {
+      "id": 94,
+      "orgType": "Healthcare",
+      "problem": "Medication reconciliation errors happen weekly...",
+      "interactions": 20,
+      "minutes": 18,
+      "satisfaction": 4.3
+    },
+    {
+      "id": 72,
+      "orgType": "Nonprofit",
+      "problem": "Donor tracking is split between 3 spreadsheets and a CRM nob...",
+      "interactions": 19,
+      "minutes": 18,
+      "satisfaction": 3.3
+    },
+    {
+      "id": 83,
+      "orgType": "Education",
+      "problem": "Parent communication is inconsistent across teachers...",
+      "interactions": 18,
+      "minutes": 18,
+      "satisfaction": 4.3
+    },
+    {
+      "id": 99,
+      "orgType": "Consulting",
+      "problem": "Resource allocation conflicts between projects weekly...",
+      "interactions": 20,
+      "minutes": 23,
+      "satisfaction": 3.7
+    },
+    {
+      "id": 29,
+      "orgType": "Legal",
+      "problem": "Client intake forms are still faxed (yes, faxed)...",
+      "interactions": 19,
+      "minutes": 19,
+      "satisfaction": 3.7
+    },
+    {
+      "id": 62,
+      "orgType": "Financial Services",
+      "problem": "Risk assessment is done in spreadsheets that nobody trusts...",
+      "interactions": 19,
+      "minutes": 17,
+      "satisfaction": 4.3
+    },
+    {
+      "id": 48,
+      "orgType": "Retail",
+      "problem": "Loss prevention data never reaches store managers in time...",
+      "interactions": 18,
+      "minutes": 16,
+      "satisfaction": 5
+    },
+    {
+      "id": 52,
+      "orgType": "Tech Startup",
+      "problem": "Feature requests from sales never make it to the roadmap...",
+      "interactions": 20,
+      "minutes": 23,
+      "satisfaction": 4
+    },
+    {
+      "id": 95,
+      "orgType": "Financial Services",
+      "problem": "Compliance reporting takes a full week every quarter...",
+      "interactions": 18,
+      "minutes": 15,
+      "satisfaction": 5
+    },
+    {
+      "id": 49,
+      "orgType": "Financial Services",
+      "problem": "Audit preparation consumes 20% of senior staff time...",
+      "interactions": 20,
+      "minutes": 18,
+      "satisfaction": 3.7
+    },
+    {
+      "id": 47,
+      "orgType": "Legal",
+      "problem": "Document review is 80% paralegal time on low-value work...",
+      "interactions": 19,
+      "minutes": 16,
+      "satisfaction": 4.3
+    },
+    {
+      "id": 80,
+      "orgType": "Healthcare",
+      "problem": "Medication reconciliation errors happen weekly...",
+      "interactions": 19,
+      "minutes": 18,
+      "satisfaction": 4
+    },
+    {
+      "id": 79,
+      "orgType": "Consulting",
+      "problem": "Client deliverable reviews take 3 rounds minimum...",
+      "interactions": 19,
+      "minutes": 22,
+      "satisfaction": 3.7
+    },
+    {
+      "id": 61,
+      "orgType": "Consulting",
+      "problem": "Knowledge from past projects never makes it to new teams...",
+      "interactions": 19,
+      "minutes": 17,
+      "satisfaction": 4
+    },
+    {
+      "id": 53,
+      "orgType": "Retail",
+      "problem": "Customer complaints get resolved but patterns never get addr...",
+      "interactions": 18,
+      "minutes": 19,
+      "satisfaction": 4.3
+    },
+    {
+      "id": 67,
+      "orgType": "Government",
+      "problem": "Budget reconciliation is 3 months behind at any given time...",
+      "interactions": 20,
+      "minutes": 23,
+      "satisfaction": 3.3
+    },
+    {
+      "id": 20,
+      "orgType": "Tech Startup",
+      "problem": "Documentation is scattered across 6 different tools...",
+      "interactions": 20,
+      "minutes": 20,
+      "satisfaction": 4.7
+    },
+    {
+      "id": 68,
+      "orgType": "Financial Services",
+      "problem": "Expense approvals sit in queues for weeks...",
+      "interactions": 19,
+      "minutes": 19,
+      "satisfaction": 4.7
+    },
+    {
+      "id": 16,
+      "orgType": "Retail",
+      "problem": "Customer complaints get resolved but patterns never get addr...",
+      "interactions": 20,
+      "minutes": 23,
+      "satisfaction": 3.7
+    },
+    {
+      "id": 31,
+      "orgType": "Legal",
+      "problem": "Document review is 80% paralegal time on low-value work...",
+      "interactions": 19,
+      "minutes": 15,
+      "satisfaction": 3.3
+    },
+    {
+      "id": 17,
+      "orgType": "Consulting",
+      "problem": "Utilization tracking is always disputed...",
+      "interactions": 18,
+      "minutes": 20,
+      "satisfaction": 3.7
+    },
+    {
+      "id": 21,
+      "orgType": "Education",
+      "problem": "Substitute teacher coordination is chaos every morning...",
+      "interactions": 20,
+      "minutes": 23,
+      "satisfaction": 4
+    },
+    {
+      "id": 63,
+      "orgType": "Manufacturing",
+      "problem": "Inventory counts are always wrong by the time reports are ru...",
+      "interactions": 20,
+      "minutes": 17,
+      "satisfaction": 4.3
+    },
+    {
+      "id": 93,
+      "orgType": "Manufacturing",
+      "problem": "Supplier communication happens through a maze of emails...",
+      "interactions": 20,
+      "minutes": 20,
+      "satisfaction": 4.7
+    },
+    {
+      "id": 97,
+      "orgType": "Tech Startup",
+      "problem": "Customer support tickets get lost between Slack and email...",
+      "interactions": 20,
+      "minutes": 21,
+      "satisfaction": 4.3
+    },
+    {
+      "id": 77,
+      "orgType": "Manufacturing",
+      "problem": "Maintenance scheduling is reactive, never preventive...",
+      "interactions": 20,
+      "minutes": 16,
+      "satisfaction": 3.7
+    },
+    {
+      "id": 11,
+      "orgType": "Healthcare",
+      "problem": "Scheduling coordination between departments requires 5+ phon...",
+      "interactions": 20,
+      "minutes": 21,
+      "satisfaction": 3.7
+    },
+    {
+      "id": 89,
+      "orgType": "Healthcare",
+      "problem": "Patient intake paperwork is still mostly manual despite havi...",
+      "interactions": 18,
+      "minutes": 16,
+      "satisfaction": 4
+    },
+    {
+      "id": 39,
+      "orgType": "Retail",
+      "problem": "Vendor negotiations happen without historical data...",
+      "interactions": 19,
+      "minutes": 22,
+      "satisfaction": 4.3
+    },
+    {
+      "id": 43,
+      "orgType": "Government",
+      "problem": "Budget reconciliation is 3 months behind at any given time...",
+      "interactions": 19,
+      "minutes": 20,
+      "satisfaction": 3.3
+    },
+    {
+      "id": 35,
+      "orgType": "Financial Services",
+      "problem": "Client onboarding requires 12 different forms across 4 syste...",
+      "interactions": 19,
+      "minutes": 19,
+      "satisfaction": 4.3
+    },
+    {
+      "id": 91,
+      "orgType": "Manufacturing",
+      "problem": "Maintenance scheduling is reactive, never preventive...",
+      "interactions": 19,
+      "minutes": 19,
+      "satisfaction": 4
+    },
+    {
+      "id": 98,
+      "orgType": "Government",
+      "problem": "Budget reconciliation is 3 months behind at any given time...",
+      "interactions": 19,
+      "minutes": 16,
+      "satisfaction": 5
+    },
+    {
+      "id": 18,
+      "orgType": "Financial Services",
+      "problem": "Compliance reporting takes a full week every quarter...",
+      "interactions": 18,
+      "minutes": 18,
+      "satisfaction": 3.7
+    },
+    {
+      "id": 22,
+      "orgType": "Healthcare",
+      "problem": "Medication reconciliation errors happen weekly...",
+      "interactions": 18,
+      "minutes": 21,
+      "satisfaction": 4.7
+    },
+    {
+      "id": 55,
+      "orgType": "Tech Startup",
+      "problem": "Feature requests from sales never make it to the roadmap...",
+      "interactions": 20,
+      "minutes": 21,
+      "satisfaction": 4.3
+    },
+    {
+      "id": 73,
+      "orgType": "Consulting",
+      "problem": "Resource allocation conflicts between projects weekly...",
+      "interactions": 18,
+      "minutes": 15,
+      "satisfaction": 3.7
+    },
+    {
+      "id": 34,
+      "orgType": "Government",
+      "problem": "Permit applications require 6 department approvals that don'...",
+      "interactions": 18,
+      "minutes": 15,
+      "satisfaction": 3
+    },
+    {
+      "id": 41,
+      "orgType": "Healthcare",
+      "problem": "Patient intake paperwork is still mostly manual despite havi...",
+      "interactions": 19,
+      "minutes": 21,
+      "satisfaction": 4.3
+    },
+    {
+      "id": 96,
+      "orgType": "Healthcare",
+      "problem": "Medication reconciliation errors happen weekly...",
+      "interactions": 20,
+      "minutes": 22,
+      "satisfaction": 3.3
+    },
+    {
+      "id": 86,
+      "orgType": "Tech Startup",
+      "problem": "Feature requests from sales never make it to the roadmap...",
+      "interactions": 19,
+      "minutes": 21,
+      "satisfaction": 4.3
+    },
+    {
+      "id": 65,
+      "orgType": "Healthcare",
+      "problem": "Scheduling coordination between departments requires 5+ phon...",
+      "interactions": 18,
+      "minutes": 16,
+      "satisfaction": 3.7
+    },
+    {
+      "id": 81,
+      "orgType": "Nonprofit",
+      "problem": "Volunteer scheduling conflicts happen every event...",
+      "interactions": 19,
+      "minutes": 19,
+      "satisfaction": 3.3
+    },
+    {
+      "id": 28,
+      "orgType": "Retail",
+      "problem": "Customer complaints get resolved but patterns never get addr...",
+      "interactions": 18,
+      "minutes": 21,
+      "satisfaction": 4.3
+    },
+    {
+      "id": 33,
+      "orgType": "Consulting",
+      "problem": "Proposal creation starts from scratch every time...",
+      "interactions": 18,
+      "minutes": 16,
+      "satisfaction": 4.3
+    },
+    {
+      "id": 14,
+      "orgType": "Consulting",
+      "problem": "Knowledge from past projects never makes it to new teams...",
+      "interactions": 19,
+      "minutes": 18,
+      "satisfaction": 4
+    },
+    {
+      "id": 8,
+      "orgType": "Healthcare",
+      "problem": "Scheduling coordination between departments requires 5+ phon...",
+      "interactions": 20,
+      "minutes": 18,
+      "satisfaction": 4.3
+    },
+    {
+      "id": 36,
+      "orgType": "Consulting",
+      "problem": "Resource allocation conflicts between projects weekly...",
+      "interactions": 20,
+      "minutes": 21,
+      "satisfaction": 4
+    },
+    {
+      "id": 24,
+      "orgType": "Manufacturing",
+      "problem": "Quality control data sits in paper logs nobody reads...",
+      "interactions": 20,
+      "minutes": 18,
+      "satisfaction": 3.3
+    },
+    {
+      "id": 4,
+      "orgType": "Manufacturing",
+      "problem": "Supplier communication happens through a maze of emails...",
+      "interactions": 20,
+      "minutes": 23,
+      "satisfaction": 3.7
+    },
+    {
+      "id": 92,
+      "orgType": "Retail",
+      "problem": "Inventory transfers between stores take 5 days of paperwork...",
+      "interactions": 18,
+      "minutes": 20,
+      "satisfaction": 3.7
+    },
+    {
+      "id": 87,
+      "orgType": "Retail",
+      "problem": "Vendor negotiations happen without historical data...",
+      "interactions": 20,
+      "minutes": 18,
+      "satisfaction": 4
+    }
+  ]
+}

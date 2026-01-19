@@ -1,0 +1,63 @@
+{
+  "sessionId": "sim-1768858926089-vc0gyjprk",
+  "startedAt": "2026-01-19T21:25:06.089Z",
+  "completedAt": "2026-01-19T21:42:06.089Z",
+  "phase": "FINAL",
+  "candidates": [
+    {
+      "text": "Resource allocation conflicts between projects weekly",
+      "addedAt": "2026-01-19T21:25:06.089Z"
+    }
+  ],
+  "selectedCandidate": "Resource allocation conflicts between projects weekly",
+  "evaluationMode": "deep",
+  "audit": {
+    "consensusPassed": true,
+    "strategic": "critical",
+    "measurable": "clear",
+    "previousAttempts": "multiple"
+  },
+  "autopsy": {
+    "originsConstraints": "Created by a vendor implementation that optimized for their product, not your workflow. The consulting industry had different pressures then, and the process reflected that reality.",
+    "assumptionsWorkarounds": "People assume the other department needs this format, but nobody has asked them in years. Meanwhile, people have built workarounds: a 'special request' process that most work goes through.",
+    "stakesOutcomes": "Multiple teams have optimized around the dysfunction - changing it affects everyone. The real goal is happier customers, but the current process has become an end in itself."
+  },
+  "desuck": {
+    "outcomes": [
+      "Data gathering and initial analysis",
+      "Communication and stakeholder updates",
+      "Quality assurance and compliance"
+    ],
+    "workflow": [
+      {
+        "outcome": "Data gathering and initial analysis",
+        "mode": "delegating",
+        "confidence": "high",
+        "aiDoes": "Collects data from multiple sources, runs initial analysis, flags anomalies",
+        "humanDoes": "Validates findings, adds context AI can't access, makes final calls",
+        "reasoning": "AI excels at this type of work. Patterns are clear and repeatable."
+      },
+      {
+        "outcome": "Communication and stakeholder updates",
+        "mode": "supervising",
+        "confidence": "medium",
+        "aiDoes": "Drafts communications, maintains consistency, handles routine updates",
+        "humanDoes": "Reviews for tone, handles sensitive messages, manages relationships",
+        "reasoning": "Routine enough for AI with this type of work. Consistency is the key value-add."
+      },
+      {
+        "outcome": "Quality assurance and compliance",
+        "mode": "approving",
+        "confidence": "high",
+        "aiDoes": "Runs all standard checks, compares against requirements, documents findings",
+        "humanDoes": "Reviews exceptions, makes judgment calls, signs off on final output",
+        "reasoning": "Quality requires this type of work. Patterns are clear and repeatable."
+      }
+    ],
+    "learning": "Track throughput weekly. Feed human corrections back to improve AI recommendations. Review collaboration modes monthly and adjust based on what's working.",
+    "transition": {
+      "humanElement": "Start with the lowest-risk application. Get IT aligned before expanding.",
+      "pilotPlan": "Run a one-month pilot with new hires only. Measure before and after, then scale based on results."
+    }
+  }
+}

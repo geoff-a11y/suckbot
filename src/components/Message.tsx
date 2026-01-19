@@ -11,6 +11,7 @@ import SuccessCard from "./cards/SuccessCard";
 import SuckStatementCard from "./cards/SuckStatementCard";
 import ComparisonTable from "./cards/ComparisonTable";
 import AutopsyReportCard from "./cards/AutopsyReportCard";
+import ToolsRecommendationCard from "./cards/ToolsRecommendationCard";
 import WorkflowDesignCard from "./cards/WorkflowDesignCard";
 import ModesExplainerCard from "./cards/ModesExplainerCard";
 import FlywheelCard from "./cards/FlywheelCard";
@@ -61,6 +62,8 @@ export default function Message({ message, isLatest = false }: Props) {
           return <ComparisonTable {...card} />;
         case "autopsy-report":
           return <AutopsyReportCard {...card} />;
+        case "tools-recommendation":
+          return <ToolsRecommendationCard {...card} />;
         case "workflow-design":
           return <WorkflowDesignCard {...card} />;
         case "modes-explainer":

@@ -48,45 +48,57 @@ export default function Header({ phase, onStartOver }: HeaderProps) {
 
         {/* 3-stage progress indicator */}
         {showProgress && actInfo && (
-          <div className="mt-3 flex items-center gap-2">
-            {STAGES.map((stage, index) => {
-              const isComplete = actInfo.actNumber > stage.num;
-              const isCurrent = actInfo.actNumber === stage.num;
-              const isPending = actInfo.actNumber < stage.num;
+          <div className="mt-3">
+            <div className="flex items-center gap-2">
+              {STAGES.map((stage, index) => {
+                const isComplete = actInfo.actNumber > stage.num;
+                const isCurrent = actInfo.actNumber === stage.num;
 
-              return (
-                <div key={stage.num} className="flex items-center flex-1">
-                  {/* Stage pill */}
-                  <div
-                    className={`flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-medium transition-colors ${
-                      isComplete
-                        ? "bg-[var(--color-success)] text-white"
-                        : isCurrent
-                        ? "bg-[var(--color-primary)] text-white"
-                        : "bg-[var(--color-border)] text-[var(--color-text-muted)]"
-                    }`}
-                  >
-                    {isComplete ? (
-                      <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
-                      </svg>
-                    ) : (
-                      <span>{stage.num}</span>
-                    )}
-                    <span className="text-[10px] sm:text-xs">{stage.label}</span>
-                  </div>
-
-                  {/* Connector line */}
-                  {index < STAGES.length - 1 && (
+                return (
+                  <div key={stage.num} className="flex items-center flex-1">
+                    {/* Stage pill */}
                     <div
-                      className={`flex-1 h-0.5 mx-2 ${
-                        isComplete ? "bg-[var(--color-success)]" : "bg-[var(--color-border)]"
+                      className={`flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-medium transition-colors ${
+                        isComplete
+                          ? "bg-[var(--color-success)] text-white"
+                          : isCurrent
+                          ? "bg-[var(--color-primary)] text-white"
+                          : "bg-[var(--color-border)] text-[var(--color-text-muted)]"
                       }`}
-                    />
-                  )}
-                </div>
-              );
-            })}
+                    >
+                      {isComplete ? (
+                        <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                        </svg>
+                      ) : isCurrent && actInfo.stageTotalSteps > 0 ? (
+                        <span className="text-[10px]">{actInfo.stageStep}/{actInfo.stageTotalSteps}</span>
+                      ) : (
+                        <span>{stage.num}</span>
+                      )}
+                      <span className="text-[10px] sm:text-xs">{stage.label}</span>
+                    </div>
+
+                    {/* Connector line */}
+                    {index < STAGES.length - 1 && (
+                      <div
+                        className={`flex-1 h-0.5 mx-2 ${
+                          isComplete ? "bg-[var(--color-success)]" : "bg-[var(--color-border)]"
+                        }`}
+                      />
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+
+            {/* Time estimate */}
+            {actInfo.estimatedMinutesRemaining > 0 && (
+              <div className="mt-2 text-center">
+                <span className="text-[10px] text-[var(--color-text-muted)]">
+                  ~{actInfo.estimatedMinutesRemaining} min remaining
+                </span>
+              </div>
+            )}
           </div>
         )}
       </div>

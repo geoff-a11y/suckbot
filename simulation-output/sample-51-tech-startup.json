@@ -1,0 +1,63 @@
+{
+  "sessionId": "sim-1768859581050-2zqbnf07n",
+  "startedAt": "2026-01-19T21:32:01.050Z",
+  "completedAt": "2026-01-19T21:53:01.050Z",
+  "phase": "FINAL",
+  "candidates": [
+    {
+      "text": "Customer support tickets get lost between Slack and email",
+      "addedAt": "2026-01-19T21:32:01.050Z"
+    }
+  ],
+  "selectedCandidate": "Customer support tickets get lost between Slack and email",
+  "evaluationMode": "deep",
+  "audit": {
+    "consensusPassed": true,
+    "strategic": "important",
+    "measurable": "clear",
+    "previousAttempts": "multiple"
+  },
+  "autopsy": {
+    "originsConstraints": "This process was designed when regulatory requirements was a real limitation. The original team built what made sense at the time. The tech startup industry had different pressures then, and the process reflected that reality.",
+    "assumptionsWorkarounds": "The belief that 'this is how it's always been done' has prevented anyone from questioning it. Meanwhile, people have built workarounds: scripts that automate parts nobody talks about.",
+    "stakesOutcomes": "Several workarounds have created informal power structures people want to protect. The real goal is lower costs, but the current process has become an end in itself."
+  },
+  "desuck": {
+    "outcomes": [
+      "Data gathering and initial analysis",
+      "Communication and stakeholder updates",
+      "Quality assurance and compliance"
+    ],
+    "workflow": [
+      {
+        "outcome": "Data gathering and initial analysis",
+        "mode": "delegating",
+        "confidence": "high",
+        "aiDoes": "Collects data from multiple sources, runs initial analysis, flags anomalies",
+        "humanDoes": "Validates findings, adds context AI can't access, makes final calls",
+        "reasoning": "AI excels at this type of work. Human relationships matter here."
+      },
+      {
+        "outcome": "Communication and stakeholder updates",
+        "mode": "supervising",
+        "confidence": "medium",
+        "aiDoes": "Drafts communications, maintains consistency, handles routine updates",
+        "humanDoes": "Reviews for tone, handles sensitive messages, manages relationships",
+        "reasoning": "Routine enough for AI with this type of work. The volume makes automation essential."
+      },
+      {
+        "outcome": "Quality assurance and compliance",
+        "mode": "approving",
+        "confidence": "high",
+        "aiDoes": "Runs all standard checks, compares against requirements, documents findings",
+        "humanDoes": "Reviews exceptions, makes judgment calls, signs off on final output",
+        "reasoning": "Quality requires this type of work. Patterns are clear and repeatable."
+      }
+    ],
+    "learning": "Track throughput weekly. Feed human corrections back to improve AI recommendations. Review collaboration modes monthly and adjust based on what's working.",
+    "transition": {
+      "humanElement": "Start with the highest-volume use case. Get leadership aligned before expanding.",
+      "pilotPlan": "Run a 2-week pilot with the morning shift. Measure before and after, then scale based on results."
+    }
+  }
+}

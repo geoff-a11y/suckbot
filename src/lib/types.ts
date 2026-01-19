@@ -13,16 +13,14 @@ export type Phase =
   | "Q_EVALUATION"
   | "AUDIT_COMPLETE"
   | "AUTOPSY_INTRO"
+  | "AUTOPSY_QUICK"
   | "L1_ORIGINS"
   | "L2_ASSUMPTIONS"
   | "L3_STAKES"
   | "AUTOPSY_REPORT"
   | "DESUCK_INTRO"
-  | "M1_OUTCOMES"
-  | "M2_CAPABILITIES"
-  | "M3_WORKFLOW"
-  | "M4_LEARNING"
-  | "M5_TRANSITION"
+  | "DESUCK_BLUEPRINT"
+  | "DESUCK_ADJUST"
   | "DESUCK_SUMMARY"
   | "GENERATE_REPORT"
   | "FINAL";
@@ -38,6 +36,7 @@ export type CardType =
   | "suck-statement"
   | "comparison-table"
   | "autopsy-report"
+  | "tools-recommendation"
   | "workflow-design"
   | "modes-explainer"
   | "flywheel"
@@ -95,6 +94,7 @@ export interface DesuckData {
     humanElement: string;
     pilotPlan: string;
   };
+  executiveSummary?: string;
   completedAt?: string;
 }
 

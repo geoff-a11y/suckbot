@@ -1,0 +1,63 @@
+{
+  "sessionId": "sim-1768858926090-xpudmcdzb",
+  "startedAt": "2026-01-19T21:10:06.090Z",
+  "completedAt": "2026-01-19T21:42:06.090Z",
+  "phase": "FINAL",
+  "candidates": [
+    {
+      "text": "Audit preparation consumes 20% of senior staff time",
+      "addedAt": "2026-01-19T21:10:06.090Z"
+    }
+  ],
+  "selectedCandidate": "Audit preparation consumes 20% of senior staff time",
+  "evaluationMode": "deep",
+  "audit": {
+    "consensusPassed": true,
+    "strategic": "important",
+    "measurable": "clear",
+    "previousAttempts": "multiple"
+  },
+  "autopsy": {
+    "originsConstraints": "Created by a vendor implementation that optimized for their product, not your workflow. The financial services industry had different pressures then, and the process reflected that reality.",
+    "assumptionsWorkarounds": "The team believes leadership wants it this way, but leadership thinks the team prefers it. Meanwhile, people have built workarounds: informal networks that bypass the official channels.",
+    "stakesOutcomes": "Several workarounds have created informal power structures people want to protect. The real goal is reduced risk, but the current process has become an end in itself."
+  },
+  "desuck": {
+    "outcomes": [
+      "Data gathering and initial analysis",
+      "Communication and stakeholder updates",
+      "Quality assurance and compliance"
+    ],
+    "workflow": [
+      {
+        "outcome": "Data gathering and initial analysis",
+        "mode": "delegating",
+        "confidence": "high",
+        "aiDoes": "Collects data from multiple sources, runs initial analysis, flags anomalies",
+        "humanDoes": "Validates findings, adds context AI can't access, makes final calls",
+        "reasoning": "AI excels at this type of work. Human relationships matter here."
+      },
+      {
+        "outcome": "Communication and stakeholder updates",
+        "mode": "supervising",
+        "confidence": "medium",
+        "aiDoes": "Drafts communications, maintains consistency, handles routine updates",
+        "humanDoes": "Reviews for tone, handles sensitive messages, manages relationships",
+        "reasoning": "Routine enough for AI with this type of work. Human relationships matter here."
+      },
+      {
+        "outcome": "Quality assurance and compliance",
+        "mode": "approving",
+        "confidence": "high",
+        "aiDoes": "Runs all standard checks, compares against requirements, documents findings",
+        "humanDoes": "Reviews exceptions, makes judgment calls, signs off on final output",
+        "reasoning": "Quality requires this type of work. Human relationships matter here."
+      }
+    ],
+    "learning": "Track throughput weekly. Feed human corrections back to improve AI recommendations. Review collaboration modes monthly and adjust based on what's working.",
+    "transition": {
+      "humanElement": "Start with the highest-volume use case. Get leadership aligned before expanding.",
+      "pilotPlan": "Run a 2-week pilot with new hires only. Measure before and after, then scale based on results."
+    }
+  }
+}
