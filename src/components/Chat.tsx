@@ -194,12 +194,17 @@ export default function Chat() {
 
       const data: ClaudeResponse = await response.json();
 
+      // Filter out welcome/privacy cards - frontend already shows these statically
+      const filteredCards = data.cards?.filter(
+        (card) => card.type !== "welcome" && card.type !== "privacy"
+      );
+
       const assistantMessage: Message = {
         id: crypto.randomUUID(),
         role: "assistant",
         content: data.message,
         timestamp: new Date().toISOString(),
-        cards: data.cards,
+        cards: filteredCards,
         options: data.options,
         inputType: data.inputType,
       };
