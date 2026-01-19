@@ -69,7 +69,7 @@ export default function OptionButtons({ options, onSelect }: Props) {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: index * 0.08 }}
             onClick={() => onSelect(option.value, option.label)}
-            className="btn-option sm:flex-1 sm:min-w-[calc(50%-0.375rem)]"
+            className="btn-option sm:flex-1 sm:min-w-[calc(50%-0.375rem)] break-words"
             tabIndex={0}
           >
             {option.label}
@@ -86,7 +86,7 @@ export default function OptionButtons({ options, onSelect }: Props) {
         {!showCustomInput ? (
           <button
             onClick={() => setShowCustomInput(true)}
-            className="text-sm text-[var(--color-text-muted)] hover:text-[var(--color-primary)] transition-colors"
+            className="text-sm text-[var(--color-text-muted)] hover:text-[var(--color-primary)] transition-colors min-h-[44px] py-2"
           >
             Or type your own response...
           </button>

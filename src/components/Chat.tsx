@@ -345,7 +345,7 @@ export default function Chat() {
     <div className="flex flex-col min-h-screen">
       <Header phase={state.session.phase} onStartOver={handleStartOver} />
 
-      <main className="flex-1 max-w-3xl w-full mx-auto px-4 py-6 pb-52" role="main">
+      <main className="flex-1 max-w-3xl w-full mx-auto px-4 py-6 pb-60 sm:pb-52" role="main">
         <div className="space-y-4">
           {/* Welcome card - always visible once loaded */}
           <motion.div
@@ -419,7 +419,7 @@ export default function Chat() {
       </main>
 
       {inputType === "options" && currentOptions.length > 0 && (
-        <div className="fixed bottom-0 left-0 right-0 bg-[var(--color-surface)] border-t border-[var(--color-border)] px-4 py-5 safe-area-inset-bottom">
+        <div className="fixed bottom-0 left-0 right-0 bg-[var(--color-surface)] border-t border-[var(--color-border)] px-4 py-4 pb-safe">
           <div className="max-w-3xl mx-auto">
             <OptionButtons
               options={currentOptions}

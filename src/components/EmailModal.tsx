@@ -75,7 +75,7 @@ export default function EmailModal({ isOpen, onClose, onSubmit, isLoading = fals
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.95 }}
-            className="bg-[var(--color-surface)] rounded-2xl p-6 sm:p-8 max-w-md w-full shadow-xl mx-4"
+            className="bg-[var(--color-surface)] rounded-2xl p-5 sm:p-8 max-w-md w-full shadow-xl mx-4 max-h-[90vh] overflow-y-auto"
             onClick={(e) => e.stopPropagation()}
           >
             <h2 id="modal-title" className="font-heading text-2xl text-[var(--color-text)] mb-3">
@@ -157,7 +157,7 @@ export default function EmailModal({ isOpen, onClose, onSubmit, isLoading = fals
             <button
               onClick={onClose}
               disabled={isLoading}
-              className="w-full mt-3 py-3 text-[var(--color-text-muted)] hover:text-[var(--color-text)] transition-colors disabled:opacity-50"
+              className="w-full mt-3 py-3 min-h-[44px] text-[var(--color-text-muted)] hover:text-[var(--color-text)] transition-colors disabled:opacity-50"
             >
               Maybe later
             </button>

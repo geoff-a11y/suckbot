@@ -37,7 +37,7 @@ export default function Header({ phase, onStartOver }: HeaderProps) {
             {onStartOver && phase && phase !== "WELCOME" && phase !== "PRIVACY" && (
               <button
                 onClick={onStartOver}
-                className="text-xs text-[var(--color-text-muted)] hover:text-[var(--color-primary)] transition-colors px-2 py-1 rounded hover:bg-[var(--color-primary-light)]"
+                className="text-xs text-[var(--color-text-muted)] hover:text-[var(--color-primary)] transition-colors px-3 py-2 min-h-[44px] rounded hover:bg-[var(--color-primary-light)] flex items-center"
                 aria-label="Start a new session"
               >
                 Start over
@@ -73,7 +73,7 @@ export default function Header({ phase, onStartOver }: HeaderProps) {
                     ) : (
                       <span>{stage.num}</span>
                     )}
-                    <span className="hidden sm:inline">{stage.label}</span>
+                    <span className="text-[10px] sm:text-xs">{stage.label}</span>
                   </div>
 
                   {/* Connector line */}
