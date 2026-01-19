@@ -194,7 +194,7 @@ function generateSessionData(orgType: typeof ORGANIZATION_TYPES[0], problem: str
   const startTime = new Date(now.getTime() - randomInt(15, 35) * 60000);
 
   // Generate autopsy data
-  const constraint = randomChoice(["the technology", "staffing levels", "budget constraints", "regulatory requirements"]);
+  const constraint = randomChoice(["the available technology", "the staffing situation", "budget pressure", "the regulatory environment"]);
   const event = randomChoice(["a major incident", "a leadership change", "rapid growth", "a merger"]);
   const outcome = randomChoice(["faster delivery", "better quality", "lower costs", "happier customers", "reduced risk"]);
 
@@ -212,8 +212,7 @@ function generateSessionData(orgType: typeof ORGANIZATION_TYPES[0], problem: str
     ]) + ".";
 
   const stakesOutcomes = randomChoice(AUTOPSY_TEMPLATES.stakes)
-    .replace("{outcome}", outcome)
-    + " The real goal is " + outcome + ", but the current process has become an end in itself.";
+    .replace("{outcome}", outcome);
 
   // Generate outcomes (3-5 based on problem complexity)
   const outcomeCount = randomInt(3, 5);

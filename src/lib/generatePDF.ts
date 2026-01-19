@@ -78,16 +78,16 @@ export function generatePDF(session: SessionData): string {
     setColor(colors.muted);
     const lines = doc.splitTextToSize(text, contentWidth - indent);
     doc.text(lines, margin + indent, yPos);
-    yPos += lines.length * 5 + 6;
+    yPos += lines.length * 4.5 + 4;
   };
 
   const addNarrativeParagraph = (text: string) => {
-    doc.setFontSize(11);
+    doc.setFontSize(10);
     doc.setFont("OpenSans", "normal");
     setColor(colors.dark);
     const lines = doc.splitTextToSize(text, contentWidth);
     doc.text(lines, margin, yPos);
-    yPos += lines.length * 5.5 + 8;
+    yPos += lines.length * 4.5 + 5;
   };
 
   const addEmphasisBox = (text: string) => {
@@ -124,47 +124,46 @@ export function generatePDF(session: SessionData): string {
   };
 
   // === HEADER ===
-  // White background with logo
+  // Logo on left, properly sized
   if (LOGO_BASE64) {
-    // Add logo at top left
     try {
-      doc.addImage(LOGO_BASE64, "PNG", margin, 12, 50, 15);
+      // Logo with correct aspect ratio (roughly 3:1 width:height)
+      doc.addImage(LOGO_BASE64, "PNG", margin, 15, 45, 12);
     } catch (e) {
-      // Fallback if logo fails to load
       console.warn("Could not add logo to PDF:", e);
     }
   }
 
-  // Title on the right side of logo
-  doc.setFontSize(20);
+  // Date on the right, aligned with logo
+  doc.setFontSize(9);
+  doc.setFont("OpenSans", "normal");
+  setColor(colors.muted);
+  doc.text(new Date().toLocaleDateString(), pageWidth - margin, 22, { align: "right" });
+
+  // Title below logo
+  doc.setFontSize(22);
   doc.setFont("YoungSerif", "normal");
   setColor(colors.primary);
-  doc.text("Human-AI Workflow Blueprint", margin + 55, 20);
+  doc.text("Human-AI Workflow Blueprint", margin, 38);
 
   // Problem-specific subtitle
   const problemSummary = session.selectedCandidate
-    ? session.selectedCandidate.length > 80
-      ? session.selectedCandidate.substring(0, 77) + "..."
+    ? session.selectedCandidate.length > 70
+      ? session.selectedCandidate.substring(0, 67) + "..."
       : session.selectedCandidate
     : "Process Transformation";
 
   doc.setFontSize(11);
-  doc.setFont("OpenSans", "normal");
+  doc.setFont("OpenSans", "italic");
   setColor(colors.dark);
-  const subtitleLines = doc.splitTextToSize(problemSummary, contentWidth - 60);
-  doc.text(subtitleLines, margin + 55, 28);
-
-  // Date on the right
-  doc.setFontSize(9);
-  setColor(colors.muted);
-  doc.text(new Date().toLocaleDateString(), pageWidth - margin, 20, { align: "right" });
+  doc.text(problemSummary, margin, 46);
 
   // Divider line
   doc.setDrawColor(colors.light[0], colors.light[1], colors.light[2]);
   doc.setLineWidth(1);
-  doc.line(margin, 42, pageWidth - margin, 42);
+  doc.line(margin, 52, pageWidth - margin, 52);
 
-  yPos = 52;
+  yPos = 62;
 
   // === EXECUTIVE SUMMARY ===
   addSectionTitle("Executive Summary");
@@ -271,7 +270,7 @@ export function generatePDF(session: SessionData): string {
       approachSummary += `AI fully handles ${delegatedCount} outcome${delegatedCount > 1 ? 's' : ''} within defined guardrails. `;
     }
     if (supervisedCount > 0) {
-      approachSummary += `${supervisedCount} outcome${supervisedCount > 1 ? 's' : ''} run on AI with human oversight. `;
+      approachSummary += `${supervisedCount} outcome${supervisedCount > 1 ? 's run' : ' runs'} on AI with human oversight. `;
     }
     if (humanLedCount > 0) {
       approachSummary += `Humans lead ${humanLedCount} outcome${humanLedCount > 1 ? 's' : ''} with AI assistance. `;
@@ -345,38 +344,26 @@ export function generatePDF(session: SessionData): string {
   // Check if using new 3-layer format or legacy 6-layer format
   const isNewFormat = autopsy.originsConstraints || autopsy.assumptionsWorkarounds || autopsy.stakesOutcomes;
 
+  // Combine all autopsy content into flowing narrative
+  const autopsyContent: string[] = [];
+
   if (isNewFormat) {
-    // Write as flowing narrative, not rigid boxes
-    if (autopsy.originsConstraints) {
-      addNarrativeParagraph(autopsy.originsConstraints);
-    }
-
-    checkPageBreak(40);
-
-    if (autopsy.assumptionsWorkarounds) {
-      addNarrativeParagraph(autopsy.assumptionsWorkarounds);
-    }
-
-    checkPageBreak(40);
-
-    if (autopsy.stakesOutcomes) {
-      addNarrativeParagraph(autopsy.stakesOutcomes);
-    }
+    if (autopsy.originsConstraints) autopsyContent.push(autopsy.originsConstraints);
+    if (autopsy.assumptionsWorkarounds) autopsyContent.push(autopsy.assumptionsWorkarounds);
+    if (autopsy.stakesOutcomes) autopsyContent.push(autopsy.stakesOutcomes);
   } else {
-    // Legacy 6-layer format - also as narrative
-    const narrativeParts: string[] = [];
+    if (autopsy.origin) autopsyContent.push(autopsy.origin);
+    if (autopsy.constraints) autopsyContent.push(autopsy.constraints);
+    if (autopsy.assumptions) autopsyContent.push(autopsy.assumptions);
+    if (autopsy.workarounds) autopsyContent.push(autopsy.workarounds);
+    if (autopsy.stakeholders) autopsyContent.push(autopsy.stakeholders);
+    if (autopsy.outcomes) autopsyContent.push(autopsy.outcomes);
+  }
 
-    if (autopsy.origin) narrativeParts.push(autopsy.origin);
-    if (autopsy.constraints) narrativeParts.push(autopsy.constraints);
-    if (autopsy.assumptions) narrativeParts.push(autopsy.assumptions);
-    if (autopsy.workarounds) narrativeParts.push(autopsy.workarounds);
-    if (autopsy.stakeholders) narrativeParts.push(autopsy.stakeholders);
-    if (autopsy.outcomes) narrativeParts.push(autopsy.outcomes);
-
-    narrativeParts.forEach(part => {
-      checkPageBreak(40);
-      addNarrativeParagraph(part);
-    });
+  // Join into single flowing text with minimal breaks
+  if (autopsyContent.length > 0) {
+    const combinedText = autopsyContent.join(" ");
+    addNarrativeParagraph(combinedText);
   }
 
   checkPageBreak(80);
