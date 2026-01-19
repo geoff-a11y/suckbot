@@ -12,12 +12,9 @@ const COMPLEX_PHASES: Phase[] = [
   "QUICK_COMPARE",
   "COMPARE_SUMMARY",
   "AUTOPSY_INTRO",
-  "L1_ORIGIN",
-  "L2_CONSTRAINTS",
-  "L3_ASSUMPTIONS",
-  "L4_WORKAROUNDS",
-  "L5_STAKEHOLDERS",
-  "L6_OUTCOMES",
+  "L1_ORIGINS",
+  "L2_ASSUMPTIONS",
+  "L3_STAKES",
   "AUTOPSY_REPORT",
   "DESUCK_INTRO",
   "M1_OUTCOMES",
@@ -26,7 +23,6 @@ const COMPLEX_PHASES: Phase[] = [
   "M4_LEARNING",
   "M5_TRANSITION",
   "DESUCK_SUMMARY",
-  "FINAL_SUMMARY",
 ];
 
 // Select model based on phase complexity

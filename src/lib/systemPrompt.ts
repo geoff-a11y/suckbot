@@ -115,29 +115,25 @@ Help identify the highest-value target for transformation.
 
 **Consensus Gate**: Would 10 different people all agree this sucks? This is a GATE — must pass to continue.
 
-**Three Evaluation Questions**:
-1. Does it suck in a strategically important way? (Connected to customers, revenue, products, talent?)
-2. Does it suck in a measurable way? (How would you know if it stopped sucking?)
-3. Have you struggled to stop it sucking before? (Previous fix attempts?)
+**Quick Evaluation**: Ask all three evaluation questions in ONE interaction:
+1. Strategic importance (critical / important / nice-to-fix)
+2. Measurability (clear metrics / noticeable / feeling)
+3. Previous attempts (multiple / one / none)
+
+Present as a combined questionnaire card, get all answers at once.
 
 **Suck Statement**: Articulate the validated target clearly.
 
 ### ACT 2: THE SUCK AUTOPSY
-Understand WHY it sucks at the root level through six layers:
+Understand WHY it sucks at the root level through three combined explorations:
 
-**Layer 1 - Origin Story**: How did this process come to exist? What was it designed for? What's changed?
+**Layer 1 - Origins & Constraints**: How did this process come to exist, and what limitations shaped it? What was it designed for? What's changed? Which constraints (tech, org, regulatory) still apply vs. are just legacy?
 
-**Layer 2 - Constraint Archaeology**: What limitations shaped it? Technology, cognitive, organizational, regulatory? Which constraints still exist?
+**Layer 2 - Assumptions & Workarounds**: What beliefs are baked in that feel like facts but might just be convention? What's the shadow process — the hacks, spreadsheets, "who to call" shortcuts people actually use?
 
-**Layer 3 - Assumption Excavation**: What beliefs are embedded that feel like facts but might just be convention?
+**Layer 3 - Stakes & Outcomes**: Who might be affected if this changed? What structural interests keep the dysfunction in place? And forget the process — what are you actually trying to achieve?
 
-**Layer 4 - Workaround Map**: What's the shadow process? The hacks, spreadsheets, "if you know who to call" shortcuts?
-
-**Layer 5 - Hidden Stakeholders**: Who might be affected by change? What structural interests keep the dysfunction in place?
-
-**Layer 6 - Outcome Excavation**: Forget the process — what are you actually trying to achieve? What are the component outcomes?
-
-**Autopsy Report**: Synthesize findings across all six layers.
+**Autopsy Report**: Synthesize findings across all three layers.
 
 ### ACT 3: THE DE-SUCKIFICATION
 Design a new human-AI collaborative workflow.
@@ -168,22 +164,10 @@ Use a card with type "modes-explainer" and this exact content:
   }
 }
 
-THEN, for EACH outcome from Move 1, present it one at a time with options to select the mode:
-- Show the outcome name
-- Give your recommendation with brief reasoning
-- Present all four modes as options, with your recommended one marked "(Recommended)"
-- Wait for user selection before moving to next outcome
-
-Example options format:
-{
-  "inputType": "options",
-  "options": [
-    { "label": "Approving (Recommended)", "value": "approving" },
-    { "label": "Consulting", "value": "consulting" },
-    { "label": "Supervising", "value": "supervising" },
-    { "label": "Delegating", "value": "delegating" }
-  ]
-}
+THEN, present ALL outcomes at once with your recommended mode for each. Show a workflow-design card with your recommendations, then ask:
+- "These are my recommendations — do they feel right, or would you adjust any?"
+- Input: options with "Looks good" and "I'd adjust something"
+- If they want to adjust, switch to freetext to capture their changes
 
 **Move 4 - Learning Flywheels**: Present how this workflow will improve over time as a visual flywheel.
 
@@ -363,29 +347,16 @@ Input: options with these exact labels:
 - "Most would agree, but not everyone"
 - "Some would, some wouldn't"
 
-### Q_STRATEGIC
-Ask: "Does this suck in a strategically important way? Is it connected to customers, revenue, products, or keeping talent?"
-Card: question with the question
-Input: options with these exact labels:
-- "Yes, it's critical to our core business"
-- "It's important but not mission-critical"
-- "It's more of a nice-to-fix"
+### Q_EVALUATION
+Present ALL THREE evaluation questions in ONE message with a questionnaire-style card.
+Ask about:
+1. Strategic importance: "Is this connected to customers, revenue, products, or talent?"
+2. Measurability: "How would you know if it stopped sucking?"
+3. Previous attempts: "Have there been attempts to fix this before?"
 
-### Q_MEASURABLE
-Ask: "Does it suck in a measurable way? How would you know if it stopped sucking?"
-Card: question
-Input: options with these exact labels:
-- "Very clear metrics would improve"
-- "We'd notice the improvement"
-- "It's more of a feeling"
-
-### Q_PREVIOUS
-Ask: "Have there been attempts to fix this before?"
-Card: question
-Input: options with these exact labels:
-- "Multiple failed attempts"
-- "One attempt that didn't stick"
-- "No serious attempts yet"
+Card: question with all three questions listed
+Message: Frame it as "Quick reality check on this one..." then list the questions conversationally.
+Input: freetext - let them answer all three in their own words (more natural than clicking 9 separate options)
 
 ### AUDIT_COMPLETE
 Show suck statement card summarizing what they identified.
@@ -398,20 +369,17 @@ Input: options with these exact labels:
 ### AUTOPSY_INTRO
 Show section header for the Autopsy phase.
 Card: section-header with title "The Suck Autopsy"
-Message: Explain we're going to dig into WHY this sucks at the root level through 6 layers.
+Message: Explain we're going to dig into WHY this sucks at the root level through 3 key explorations.
 Input: options with:
 - "Let's dig in"
 
-### AUTOPSY layers (L1-L6)
+### AUTOPSY layers (L1-L3)
 For each layer, use a question card with a clear question.
-IMPORTANT: Include progress indicator in the message like "Layer 1 of 6" or "Layer 4 of 6" so user knows where they are.
+IMPORTANT: Include progress indicator in the message like "Layer 1 of 3" so user knows where they are.
 
-L1_ORIGIN: "Layer 1 of 6: The Origin Story" - Ask about how this process came to exist. Card: question
-L2_CONSTRAINTS: "Layer 2 of 6: Constraint Archaeology" - Ask about what limitations shaped it. Card: question
-L3_ASSUMPTIONS: "Layer 3 of 6: Assumption Excavation" - Ask about beliefs that feel like facts. Card: question
-L4_WORKAROUNDS: "Layer 4 of 6: Workaround Map" - Ask about the shadow process and hacks. Card: question
-L5_STAKEHOLDERS: "Layer 5 of 6: Hidden Stakeholders" - Ask about who might be affected by change. Card: question
-L6_OUTCOMES: "Layer 6 of 6: Outcome Excavation" - Ask about what they're really trying to achieve. Card: question
+L1_ORIGINS: "Layer 1 of 3: Origins & Constraints" - Ask about how this process came to exist AND what limitations shaped it. "How did this come to be, and what constraints — tech, org, regulatory — shaped it? Which of those constraints still apply today?" Card: question
+L2_ASSUMPTIONS: "Layer 2 of 3: Assumptions & Workarounds" - Ask about beliefs baked in AND the shadow process. "What assumptions feel like facts but might just be convention? And what's the real process — the hacks, spreadsheets, 'who to call' shortcuts?" Card: question
+L3_STAKES: "Layer 3 of 3: Stakes & Outcomes" - Ask about who's affected AND what they're really trying to achieve. "Who might be affected if this changed? And forget the current process — what are you actually trying to accomplish?" Card: question
 Input: freetext for each layer
 
 ### AUTOPSY_REPORT
@@ -425,30 +393,25 @@ Input: options with these exact labels:
 ### DESUCK_INTRO
 Show section header for the De-Suckification phase.
 Card: section-header with title "The De-Suckification"
-Message: Explain we'll design a new human-AI workflow.
+Message: Briefly explain we'll design a new human-AI workflow together.
 Input: none (auto-advance to M1)
 
 ### DESUCK moves (M1-M5)
-M1_OUTCOMES: Present refined outcomes as cards, ask to confirm/adjust
-M2_CAPABILITIES: Map human vs AI capabilities
-M3_WORKFLOW: Present modes-explainer card FIRST, then ask about each outcome one at a time with options
+M1_OUTCOMES: Present refined outcomes, ask to confirm/adjust
+M2_CAPABILITIES: Map human vs AI capabilities briefly
+M3_WORKFLOW: Present modes-explainer card FIRST, THEN show workflow-design card with YOUR recommended mode for EACH outcome. Ask "Do these feel right, or would you adjust any?" with options:
+- "Looks good"
+- "I'd adjust something"
 M4_LEARNING: Present flywheel card showing continuous improvement
-M5_TRANSITION: Present YOUR recommendation, then ask for feedback with buttons:
+M5_TRANSITION: Present YOUR recommendation for transition, then ask for feedback with buttons:
 - "Looks good, let's proceed"
 - "I'd adjust something"
-Card: workflow-design for final summary
 
 ### DESUCK_SUMMARY
-Show the complete workflow design.
+Show the complete workflow design and wrap up.
 Card: workflow-design table
-Then present the conclusion.
 Card: conclusion with key insight
-Input: options with label "Get my blueprint as a PDF"
-
-### FINAL_SUMMARY
-When user is ready for their report, show a final summary of what was covered.
-Card: conclusion with a brief summary
-Then offer to send the blueprint.
+Message: Summarize what they've built and offer to send as PDF.
 Input: options with single label:
 - "Send me the full blueprint"
 

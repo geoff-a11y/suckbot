@@ -2,6 +2,11 @@ import { Card } from "@/lib/types";
 import FormattedText from "../FormattedText";
 
 interface AutopsyData {
+  // New 3-layer format
+  originsConstraints?: string;
+  assumptionsWorkarounds?: string;
+  stakesOutcomes?: string;
+  // Legacy 6-layer format (for backwards compatibility)
   origin?: string;
   constraints?: string;
   assumptions?: string;
@@ -13,7 +18,15 @@ interface AutopsyData {
 export default function AutopsyReportCard({ title, content, subcontent, data }: Card) {
   const autopsy = data as AutopsyData | undefined;
 
-  const sections = [
+  // New 3-layer sections
+  const newSections = [
+    { label: "Origins & Constraints", value: autopsy?.originsConstraints },
+    { label: "Assumptions & Workarounds", value: autopsy?.assumptionsWorkarounds },
+    { label: "Stakes & Outcomes", value: autopsy?.stakesOutcomes },
+  ];
+
+  // Legacy 6-layer sections (fallback)
+  const legacySections = [
     { label: "Origin Story", value: autopsy?.origin },
     { label: "Ghost Constraints", value: autopsy?.constraints },
     { label: "Unquestioned Assumptions", value: autopsy?.assumptions },
@@ -22,7 +35,10 @@ export default function AutopsyReportCard({ title, content, subcontent, data }: 
     { label: "True Outcomes", value: autopsy?.outcomes },
   ];
 
-  const hasStructuredData = sections.some((s) => s.value);
+  const hasNewFormat = newSections.some((s) => s.value);
+  const hasLegacyFormat = legacySections.some((s) => s.value);
+  const sections = hasNewFormat ? newSections : legacySections;
+  const hasStructuredData = hasNewFormat || hasLegacyFormat;
 
   return (
     <div className="card p-6 shadow-sm">

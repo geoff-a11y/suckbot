@@ -228,60 +228,81 @@ export function generatePDF(session: SessionData): string {
     "Understanding what sucks is only the beginning. To fix it sustainably, we need to understand why it persists — what keeps a clearly broken process in place despite everyone agreeing it's broken."
   );
 
-  const autopsy = session.autopsy || {};
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const autopsy = session.autopsy as any || {};
+
+  // Check if using new 3-layer format or legacy 6-layer format
+  const isNewFormat = autopsy.originsConstraints || autopsy.assumptionsWorkarounds || autopsy.stakesOutcomes;
+  const hasContent = isNewFormat || autopsy.origin || autopsy.constraints || autopsy.assumptions;
 
   // Synthesis paragraph - the key insight
-  const hasSynthesis = autopsy.origin || autopsy.constraints || autopsy.assumptions;
-  if (hasSynthesis) {
+  if (hasContent) {
     addEmphasisBox(
       "The analysis reveals a consistent pattern: this process was designed for a different era. The original constraints have changed, but the assumptions and workflows haven't caught up. Meanwhile, workarounds have created new dependencies that resist change."
     );
   }
 
-  // Origin
-  if (autopsy.origin) {
-    addSubheading("How It Started");
-    addParagraph(autopsy.origin);
-  }
+  if (isNewFormat) {
+    // New 3-layer format
+    if (autopsy.originsConstraints) {
+      addSubheading("Origins & Constraints");
+      addParagraph(autopsy.originsConstraints);
+    }
 
-  checkPageBreak(40);
+    checkPageBreak(40);
 
-  // Constraints
-  if (autopsy.constraints) {
-    addSubheading("Constraints That No Longer Apply");
-    addParagraph(autopsy.constraints);
-  }
+    if (autopsy.assumptionsWorkarounds) {
+      addSubheading("Assumptions & Workarounds");
+      addParagraph(autopsy.assumptionsWorkarounds);
+    }
 
-  checkPageBreak(40);
+    checkPageBreak(40);
 
-  // Assumptions
-  if (autopsy.assumptions) {
-    addSubheading("Unquestioned Assumptions");
-    addParagraph(autopsy.assumptions);
-  }
+    if (autopsy.stakesOutcomes) {
+      addSubheading("Stakes & Outcomes");
+      addNarrativeParagraph(autopsy.stakesOutcomes);
+    }
+  } else {
+    // Legacy 6-layer format (backward compatibility)
+    if (autopsy.origin) {
+      addSubheading("How It Started");
+      addParagraph(autopsy.origin);
+    }
 
-  checkPageBreak(40);
+    checkPageBreak(40);
 
-  // Workarounds
-  if (autopsy.workarounds) {
-    addSubheading("The Shadow Process");
-    addParagraph(autopsy.workarounds);
-  }
+    if (autopsy.constraints) {
+      addSubheading("Constraints That No Longer Apply");
+      addParagraph(autopsy.constraints);
+    }
 
-  checkPageBreak(40);
+    checkPageBreak(40);
 
-  // Stakeholders
-  if (autopsy.stakeholders) {
-    addSubheading("Hidden Dynamics");
-    addParagraph(autopsy.stakeholders);
-  }
+    if (autopsy.assumptions) {
+      addSubheading("Unquestioned Assumptions");
+      addParagraph(autopsy.assumptions);
+    }
 
-  checkPageBreak(40);
+    checkPageBreak(40);
 
-  // True outcomes
-  if (autopsy.outcomes) {
-    addSubheading("What You Actually Need");
-    addNarrativeParagraph(autopsy.outcomes);
+    if (autopsy.workarounds) {
+      addSubheading("The Shadow Process");
+      addParagraph(autopsy.workarounds);
+    }
+
+    checkPageBreak(40);
+
+    if (autopsy.stakeholders) {
+      addSubheading("Hidden Dynamics");
+      addParagraph(autopsy.stakeholders);
+    }
+
+    checkPageBreak(40);
+
+    if (autopsy.outcomes) {
+      addSubheading("What You Actually Need");
+      addNarrativeParagraph(autopsy.outcomes);
+    }
   }
 
   checkPageBreak(80);

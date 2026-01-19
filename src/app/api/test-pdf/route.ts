@@ -437,7 +437,8 @@ function generateNarrativePDF(session: Partial<SessionData>): Buffer {
   };
 
   // Extract data
-  const autopsy = session.autopsy || {};
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const autopsy = (session.autopsy || {}) as any;
   const audit = session.audit || {};
   const desuck = session.desuck || {};
   const workflow = desuck.workflow || [];
@@ -992,18 +993,12 @@ export async function GET(req: NextRequest) {
         previousAttempts: "multiple",
       },
       autopsy: {
-        origin:
-          "The process emerged when teams started using ChatGPT for content but had no good way to get it into slides. People began manually copying text and formatting it, which became the de facto workflow.",
-        constraints:
-          "Original constraint was that AI could only output text, not formatted slides. This is no longer true - AI can now generate structured content, work with templates, and even create visual layouts.",
-        assumptions:
-          "Everyone assumes presentations must be created in PowerPoint/Google Slides manually. The belief that good design requires human touch persists even for routine internal presentations.",
-        workarounds:
-          "Power users have created personal template libraries. Some teams use a shared doc where they dump AI output for others to format. One person became the unofficial slide person for their department.",
-        stakeholders:
-          "The marketing team controls brand templates and may resist automation that bypasses their review. The slide person role has become part of someone's identity and job security.",
-        outcomes:
-          "The real goal is brilliant, thoughtful presentations that are tailored to each audience, visually compelling, on-brand, and look like human thought went into their design.",
+        originsConstraints:
+          "The process emerged when teams started using ChatGPT for content but had no good way to get it into slides. People began manually copying text and formatting it, which became the de facto workflow. Original constraint was that AI could only output text, not formatted slides - this is no longer true.",
+        assumptionsWorkarounds:
+          "Everyone assumes presentations must be created in PowerPoint/Google Slides manually. Power users have created personal template libraries. Some teams use a shared doc where they dump AI output for others to format. One person became the unofficial slide person for their department.",
+        stakesOutcomes:
+          "The marketing team controls brand templates and may resist automation that bypasses their review. The slide person role has become part of someone's identity and job security. The real goal is brilliant, thoughtful presentations tailored to each audience, visually compelling, and on-brand.",
       },
       desuck: {
         outcomes: [

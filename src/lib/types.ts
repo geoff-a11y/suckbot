@@ -10,18 +10,12 @@ export type Phase =
   | "CONSENSUS_TEST"
   | "CONSENSUS_PASS"
   | "CONSENSUS_FAIL"
-  | "Q_STRATEGIC"
-  | "Q_STRATEGIC_SOFT_FAIL"
-  | "Q_MEASURABLE"
-  | "Q_PREVIOUS"
+  | "Q_EVALUATION"
   | "AUDIT_COMPLETE"
   | "AUTOPSY_INTRO"
-  | "L1_ORIGIN"
-  | "L2_CONSTRAINTS"
-  | "L3_ASSUMPTIONS"
-  | "L4_WORKAROUNDS"
-  | "L5_STAKEHOLDERS"
-  | "L6_OUTCOMES"
+  | "L1_ORIGINS"
+  | "L2_ASSUMPTIONS"
+  | "L3_STAKES"
   | "AUTOPSY_REPORT"
   | "DESUCK_INTRO"
   | "M1_OUTCOMES"
@@ -30,7 +24,6 @@ export type Phase =
   | "M4_LEARNING"
   | "M5_TRANSITION"
   | "DESUCK_SUMMARY"
-  | "FINAL_SUMMARY"
   | "GENERATE_REPORT"
   | "FINAL";
 
@@ -78,12 +71,9 @@ export interface AuditData {
 }
 
 export interface AutopsyData {
-  origin?: string;
-  constraints?: string;
-  assumptions?: string;
-  workarounds?: string;
-  stakeholders?: string;
-  outcomes?: string;
+  originsConstraints?: string;  // Layer 1: Origins & Constraints combined
+  assumptionsWorkarounds?: string;  // Layer 2: Assumptions & Workarounds combined
+  stakesOutcomes?: string;  // Layer 3: Stakes & Outcomes combined
   completedAt?: string;
 }
 
