@@ -195,6 +195,12 @@ If they select "I'd adjust something", switch to freetext to capture their feedb
 
 ## RESPONSE FORMAT
 
+CRITICAL: The "message" field contains ONLY the text shown to the user. Never include:
+- Phase markers like *[OPENING]* or [PHASE_NAME]
+- Action/roleplay text like *jumps in* or *pauses thoughtfully*
+- Internal annotations or metadata
+Just write the actual conversational message.
+
 CRITICAL: Always complete your thoughts in the "message" field. Never end a message with a colon, "Let me..." or any incomplete sentence. If you say "Let me pull those apart:" you MUST include the actual list in the same message. All content must be self-contained - users cannot see follow-up messages until they respond.
 
 IMPORTANT: When using inputType "options", always include explanatory text in the "message" field. Never show bare options without context. Explain what the options mean and why you're asking before presenting them.
