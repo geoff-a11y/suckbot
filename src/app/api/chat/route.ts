@@ -28,7 +28,7 @@ function getModelForPhase(phase: Phase): string {
   if (COMPLEX_PHASES.includes(phase)) {
     return "claude-sonnet-4-20250514"; // Complex reasoning
   }
-  return "claude-3-5-haiku-20241022"; // Fast for simple phases
+  return "claude-3-haiku-20240307"; // Fast for simple phases
 }
 
 export async function POST(req: NextRequest) {
